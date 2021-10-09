@@ -1,0 +1,38 @@
+{
+  "name": "wolfenscript3d",
+  "version": "1.0.0",
+  "description": "Wolfenstein 3D port written in TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "serve": "webpack && webpack serve --open",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "Iwo Strzeboński",
+  "license": "WTFPL",
+  "dependencies": {
+    "css-loader": "^6.3.0",
+    "style-loader": "^3.3.0",
+    "webpack-dev-server": "^4.3.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "eslint": "^7.32.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.4.3",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.55.1",
+    "webpack-cli": "^4.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iwo-strzebonski/WolfenScript3D.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iwo-strzebonski/WolfenScript3D/issues"
+  },
+  "homepage": "https://github.com/iwo-strzebonski/WolfenScript3D#readme"
+}
