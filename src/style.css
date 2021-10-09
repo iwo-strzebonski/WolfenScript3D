@@ -1,0 +1,37 @@
+* {
+    user-select: none;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%
+}
+
+body {
+    background-image: url('./img/background.png');
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main {
+    border: 4px solid black;
+    background-color: black
+}
+
+#loading-screen,
+#menu {
+    display: block;
+    width: 960px;
+    height: 720px;
+}
+
+#loading-screen {
+    position: relative;
+}
