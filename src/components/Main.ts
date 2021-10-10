@@ -1,11 +1,9 @@
 /* eslint-disable require-jsdoc */
 import LoadingScreen from './LoadingScreen'
-import Menu from './Menu'
-import View from './View'
-import Hand from './Hand'
-import Hud from './Hud'
-import MusicController from './MusicController'
-import SoundController from './SoundController'
+import Menu from './Menu/Menu'
+import View from './Game/View'
+import MusicController from './Audio/MusicController'
+import SoundController from './Audio/SoundController'
 
 export default class Main {
     private readonly FPS: number = 70
@@ -16,8 +14,6 @@ export default class Main {
     private loadingScreen: LoadingScreen
     private menu: Menu
     private view: View
-    private hand: Hand
-    private hud: Hud
 
     private musicController: MusicController
     private soundController: SoundController
@@ -26,20 +22,21 @@ export default class Main {
         this.loadingScreen = new LoadingScreen(container)
         this.menu = new Menu(container)
         this.view = new View(container)
-        this.hand = new Hand(container)
-        this.hud = new Hud(container)
 
         this.musicController = new MusicController()
         this.soundController = new SoundController()
 
         this.loadingScreen.render()
         this.menu.render()
+        this.view.render()
 
         this.menu.hide()
+        this.view.hide()
         
         this.then = Date.now()
 
         console.log('ready')
+
         this.render()
     }
 
@@ -59,6 +56,7 @@ export default class Main {
                 this.loadingScreen.state = 4
                 this.loadingScreen.hide()
                 this.menu.show()
+                // this.view.show()
                 this.menu.state = 0
             }
 

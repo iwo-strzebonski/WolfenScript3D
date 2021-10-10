@@ -1,21 +1,26 @@
 /* eslint-disable require-jsdoc */
-import GameItem from './HTMLItem'
+import HTMLItem from '../HTMLItem'
 import MenuItem from './MenuItem'
-import options from '../img/menu/options.png'
-import stripes from '../img/menu/options-stripes.png'
+import options from '../../img/menu/options.png'
+import stripes from '../../img/menu/options-stripes.png'
 
-export default class Menu extends GameItem {
+export default class Menu extends HTMLItem {
     private title: MenuItem
     private stripes: MenuItem
+    private close: MenuItem
 
     constructor(container: HTMLDivElement) {
         super(container, 'div')
         this.dom.id = 'menu'
         this.dom.ontransitionend = this.onTransitionEnd.bind(this)
 
-        this.title = new MenuItem(<HTMLDivElement>this.dom, 'img', 'title')
-        this.stripes = new MenuItem(<HTMLDivElement>this.dom, 'img', 'stripes')
+        const dom = <HTMLDivElement>this.dom
+
+        this.title = new MenuItem(dom, 'img', 'title')
+        this.stripes = new MenuItem(dom, 'img', 'stripes')
         this.stripes.setSrc(stripes)
+
+        this.close = new MenuItem(dom, 'button', 'close')
     }
 
     public render(): void {
@@ -23,6 +28,7 @@ export default class Menu extends GameItem {
 
         this.title.render()
         this.stripes.render()
+        this.close.render()
     }
 
     public update(): void {

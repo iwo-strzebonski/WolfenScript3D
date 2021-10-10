@@ -1,14 +1,25 @@
 /* eslint-disable require-jsdoc */
-export default class Menu {
+export default class HTMLItem {
     private readonly container: HTMLDivElement
     protected dom: HTMLElement
 
     public state: number
 
-    constructor(container: HTMLDivElement, tag: string) {
+    constructor(
+        container: HTMLDivElement,
+        tag: string,
+        id: string | null = null,
+        className: string | null = null
+    ) {
         this.state = -1
         this.container = container
         this.dom = document.createElement(tag)
+        if (id !== null) {
+            this.dom.id = id
+        }
+        if (className !== null) {
+            this.dom.className = className
+        }
     }
 
     public render(): void {

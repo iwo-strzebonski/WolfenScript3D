@@ -1,0 +1,17 @@
+#view > * {
+    position: absolute;
+}
+
+#hand {
+    width: 512px;
+    height: 512px;
+    top: 208px;
+    left: 224px;
+}
+
+#game {
+    width: 960px;
+    height: 720px;
+}
+
+

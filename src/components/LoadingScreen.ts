@@ -5,7 +5,7 @@ import logo from '../img/loading_screen/wolfenstein3d-logo.png'
 import pc13 from '../img/loading_screen/pc13.png'
 import welcome from '../img/loading_screen/welcome.png'
 
-export default class Loading extends HTMLItem {
+export default class LoadingScreen extends HTMLItem {
     constructor(container: HTMLDivElement) {
         super(container, 'div')
         this.dom.id = 'loading-screen'

@@ -1,0 +1,22 @@
+#menu {
+    background-color: #880000;
+}
+
+#menu > * {
+    position: absolute;
+}
+
+#title,
+#stripes {
+    top: 120px;
+}
+
+#title {
+    left: 320px;
+}
+
+#stripes {
+    z-index: -1;
+    width: 960px;
+    height: 96px;
+}

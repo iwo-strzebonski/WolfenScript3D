@@ -20,8 +20,8 @@ export default class AudioController {
 
         const context = 
             this.path === 'music'
-                ? require.context('../music/', false, /\.(mp3)$/)
-                : require.context('../sounds/', false, /\.(wav)$/)
+                ? require.context('../../music/', false, /\.(mp3)$/)
+                : require.context('../../sounds/', false, /\.(wav)$/)
 
         return <string[]> importAll(context)
     }
