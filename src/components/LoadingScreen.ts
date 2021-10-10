@@ -1,53 +1,42 @@
 /* eslint-disable require-jsdoc */
-import logo from '../img/wolfenstein3d-logo.png'
-import pc13 from '../img/pc13.png'
-import sound from './music/01 - Horst-Wessel-Lied.mp3'
+import HTMLItem from './HTMLItem'
 
-export default class Loading {
-    private container: HTMLDivElement
-    private dom: HTMLDivElement
-    private audio: HTMLAudioElement //TODO: Add Sound class
-    
-    public pressedNo: number
+import logo from '../img/loading_screen/wolfenstein3d-logo.png'
+import pc13 from '../img/loading_screen/pc13.png'
+import welcome from '../img/loading_screen/welcome.png'
 
+export default class Loading extends HTMLItem {
     constructor(container: HTMLDivElement) {
-        this.container = container
-
-        this.dom = <HTMLDivElement> document.createElement('div')
+        super(container, 'div')
         this.dom.id = 'loading-screen'
         this.dom.onclick = this.onMouseClick.bind(this)
         this.dom.ontransitionend = this.onTransitionEnd.bind(this)
 
-        this.audio = new Audio(sound)
-        this.audio.loop = true
-
-        this.pressedNo = 0
+        this.state = -1
     }
 
     private onMouseClick(): void {
-        this.pressedNo += 0.5
-
-        switch (this.pressedNo) {
-        case 0.5:
-            this.dom.style.opacity = '0'
-            break
-        case 1.5:
-            break
-        
-        case 2.5:
-            this.dom.style.opacity = '0'
-            break
-        }
+        this.state! += (this.state! | 0) === this.state! ? 0.5 : 0
+        this.dom.style.opacity = '0'
     }
 
-    private onTransitionEnd(): void {
-        let img, span
-        this.pressedNo += 0.5
-
-        switch (this.pressedNo) {
-        case 1:
+    public update(): void {
+        let img
+        if ((this.state! | 0) === this.state! && this.state! > 0) {
             this.dom.replaceChildren()
             this.dom.style.opacity = '1'
+        }
+
+        switch (this.state) {
+        case -1:
+            this.state = 0
+            this.dom.style.backgroundColor = '#dcdcdc'
+            img = <HTMLImageElement> document.createElement('img')
+            img.src = logo
+    
+            this.dom.appendChild(img)
+            break
+        case 1:
             this.dom.style.backgroundColor = '#20a8fc'
 
             img = <HTMLImageElement> document.createElement('img')
@@ -61,21 +50,16 @@ export default class Loading {
 
             break
         case 2:
-            break
-        case 3:
-            this.dom.remove()
-            this.audio.pause()
+            this.dom.style.backgroundColor = '#707070'
+
+            img = <HTMLImageElement> document.createElement('img')
+            img.id = 'welcome'
+            img.src = welcome
+            img.width = this.dom.clientWidth
+            img.height = this.dom.clientHeight
+
+            this.dom.appendChild(img)
             break
         }
-    }
-
-    render(): void {
-        this.dom.style.backgroundColor = '#dcdcdc'
-        this.dom.style.transition = 'opacity 1s ease'
-        const img = <HTMLImageElement> document.createElement('img')
-        img.src = logo
-
-        this.dom.appendChild(img)
-        this.container.appendChild(this.dom)
     }
 }

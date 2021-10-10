@@ -4,6 +4,8 @@ import Menu from './Menu'
 import View from './View'
 import Hand from './Hand'
 import Hud from './Hud'
+import MusicController from './MusicController'
+import SoundController from './SoundController'
 
 export default class Main {
     private readonly FPS: number = 70
@@ -16,6 +18,9 @@ export default class Main {
     private view: View
     private hand: Hand
     private hud: Hud
+
+    private musicController: MusicController
+    private soundController: SoundController
     
     constructor(container: HTMLDivElement) {
         this.loadingScreen = new LoadingScreen(container)
@@ -24,7 +29,13 @@ export default class Main {
         this.hand = new Hand(container)
         this.hud = new Hud(container)
 
+        this.musicController = new MusicController()
+        this.soundController = new SoundController()
+
         this.loadingScreen.render()
+        this.menu.render()
+
+        this.menu.hide()
         
         this.then = Date.now()
 
@@ -35,12 +46,28 @@ export default class Main {
     render(): void {
         if (Date.now() - this.then > this.INTERVAL) {
             this.then = Date.now()
-            console.log('rendering')
 
-            if (this.loadingScreen.pressedNo === 3) {
-                this.menu.render()
-                this.loadingScreen.pressedNo = 4
-            } 
+            if (this.loadingScreen.state! < 3) {
+                this.loadingScreen.update()
+                if (this.loadingScreen.state! === 0.5) {
+                    this.musicController.setTrack(
+                        this.musicController.play(1)
+                    )
+                }
+            } else if (this.loadingScreen.state === 3) {
+                this.musicController.pause()
+                this.loadingScreen.state = 4
+                this.loadingScreen.hide()
+                this.menu.show()
+                this.menu.state = 0
+            }
+
+            if (this.menu.state === 0) {
+                this.musicController.setTrack(this.musicController.play(2))
+                this.menu.state += 0.5
+            } else if (this.menu.state > 0) {
+                this.menu.update()
+            }
         }
 
         requestAnimationFrame(this.render.bind(this))
