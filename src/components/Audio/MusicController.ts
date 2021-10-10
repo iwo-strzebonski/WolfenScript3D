@@ -2,22 +2,22 @@
 import AudioController from './AudioController'
 
 export default class MusicController extends AudioController {
-    public music: HTMLAudioElement
+    public audio: HTMLAudioElement
 
     constructor() {
         super()
         this.path = 'music'
         this.loop = true
-        this.music = new Audio()
+        this.audio = new Audio()
         this.tracks = this.getTracks()
     }
 
     public setTrack(audio: HTMLAudioElement): void {
         this.pause()
-        this.music = audio
+        this.audio = audio
     }
 
     public pause(): void {
-        this.music.pause()
+        super.pause(this.audio)
     }
 }

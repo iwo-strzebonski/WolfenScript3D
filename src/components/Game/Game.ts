@@ -3,7 +3,10 @@ import HTMLItem from '../HTMLItem'
 
 export default class Game extends HTMLItem {
     constructor(container: HTMLDivElement) {
-        super(container, 'canvas')
-        this.dom.id = 'game'
+        super(container, 'canvas', null, 'game')
+    }
+
+    render(): void {
+        super.render()
     }
 }

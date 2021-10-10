@@ -7,6 +7,7 @@ import stripes from '../../img/menu/options-stripes.png'
 export default class Menu extends HTMLItem {
     private title: MenuItem
     private stripes: MenuItem
+    private start: MenuItem
     private close: MenuItem
 
     constructor(container: HTMLDivElement) {
@@ -16,11 +17,13 @@ export default class Menu extends HTMLItem {
 
         const dom = <HTMLDivElement>this.dom
 
-        this.title = new MenuItem(dom, 'img', 'title')
-        this.stripes = new MenuItem(dom, 'img', 'stripes')
+        this.title = new MenuItem(dom, 'img', null, 'title')
+        this.stripes = new MenuItem(dom, 'img', null, 'stripes')
         this.stripes.setSrc(stripes)
 
-        this.close = new MenuItem(dom, 'button', 'close')
+        this.start = new MenuItem(dom, 'button', 'Start Game', 'start')
+        this.start.selectable = false
+        this.close = new MenuItem(dom, 'button', 'close', 'close')
     }
 
     public render(): void {
@@ -28,6 +31,7 @@ export default class Menu extends HTMLItem {
 
         this.title.render()
         this.stripes.render()
+        this.start.render()
         this.close.render()
     }
 

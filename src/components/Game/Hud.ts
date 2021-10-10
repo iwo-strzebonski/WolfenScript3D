@@ -1,15 +1,12 @@
 /* eslint-disable require-jsdoc */
-export default class Hud {
-    private container: HTMLDivElement
-    private dom: HTMLDivElement
+import HTMLItem from '../HTMLItem'
 
+export default class Hud extends HTMLItem {
     constructor(container: HTMLDivElement) {
-        this.container = container
-        this.dom = <HTMLDivElement> document.createElement('div')
-        this.dom.id = 'hud'
+        super(container, 'div', null, 'hud')
     }
 
     render(): void {
-        this.container.appendChild(this.dom)
+        super.render()
     }
 }

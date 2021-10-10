@@ -8,15 +8,28 @@ export default class HTMLItem {
     constructor(
         container: HTMLDivElement,
         tag: string,
-        id: string | null = null,
-        className: string | null = null
+        innerText: 
+            | string
+            | null = null,
+        id: 
+            | string
+            | null = null,
+        className: 
+            | string
+            | null = null
     ) {
         this.state = -1
         this.container = container
         this.dom = document.createElement(tag)
+
+        if (innerText !== null) {
+            this.dom.innerText = innerText
+        }
+
         if (id !== null) {
             this.dom.id = id
         }
+
         if (className !== null) {
             this.dom.className = className
         }

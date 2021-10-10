@@ -3,7 +3,7 @@ import LoadingScreen from './LoadingScreen'
 import Menu from './Menu/Menu'
 import View from './Game/View'
 import MusicController from './Audio/MusicController'
-import SoundController from './Audio/SoundController'
+import AudioController from './Audio/AudioController'
 
 export default class Main {
     private readonly FPS: number = 70
@@ -16,7 +16,7 @@ export default class Main {
     private view: View
 
     private musicController: MusicController
-    private soundController: SoundController
+    private audioController: AudioController
     
     constructor(container: HTMLDivElement) {
         this.loadingScreen = new LoadingScreen(container)
@@ -24,7 +24,7 @@ export default class Main {
         this.view = new View(container)
 
         this.musicController = new MusicController()
-        this.soundController = new SoundController()
+        this.audioController = new AudioController()
 
         this.loadingScreen.render()
         this.menu.render()

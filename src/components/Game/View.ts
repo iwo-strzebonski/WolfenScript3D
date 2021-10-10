@@ -10,8 +10,7 @@ export default class View extends HTMLItem {
     public hud: Hud
 
     constructor(container: HTMLDivElement) {
-        super(container, 'div')
-        this.dom.id = 'view'
+        super(container, 'div', null, 'view')
         this.game = new Game(<HTMLDivElement>this.dom)
         this.hand = new Hand(<HTMLDivElement>this.dom)
         this.hud = new Hud(<HTMLDivElement>this.dom)

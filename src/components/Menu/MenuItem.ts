@@ -6,13 +6,22 @@ import IMenuOption from '../../api/IMenuOption'
 export default class MenuImage
     extends HTMLItem
     implements IMenuImage, IMenuOption {
+    public selectable = true
+    
     constructor(
         container: HTMLDivElement,
         tag: string,
-        id: string | null = null,
-        className: string | null = null
+        innerText: 
+            | string
+            | null = null,
+        id: 
+            | string
+            | null = null,
+        className: 
+            | string
+            | null = null
     ) {
-        super(container, tag, id, className)
+        super(container, tag, innerText, id, className)
         if (tag === 'button') {
             this.dom.onclick = this.onClick.bind(this)
         }
@@ -23,6 +32,12 @@ export default class MenuImage
     }
 
     public onClick(): void {
-        window.close()
+        if (this.selectable) {
+            console.log( this.dom.id )
+
+            if (this.dom.id === 'close') {
+                window.close()
+            }
+        }
     }
 }
