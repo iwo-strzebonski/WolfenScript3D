@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import AudioController from './AudioController'
+import Config from '../Config'
 
 export default class MusicController extends AudioController {
     public audio: HTMLAudioElement
@@ -8,6 +9,7 @@ export default class MusicController extends AudioController {
         super()
         this.path = 'music'
         this.loop = true
+        this.volume = Config.sound.musicVolume
         this.audio = new Audio()
         this.tracks = this.getTracks()
     }

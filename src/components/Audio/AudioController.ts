@@ -1,18 +1,20 @@
 /* eslint-disable require-jsdoc */
+import Config from '../Config'
+
 export default class AudioController {
-    public tracks: string[]
-    public path: string
+    protected tracks: string[]
+    protected path: string
     public loop: boolean
     public volume: number
 
     constructor() {
-        this.tracks = []
-        this.path = ''
+        this.path = 'sounds'
         this.loop = false
-        this.volume = 1
+        this.volume = Config.sound.soundVolume
+        this.tracks = this.getTracks()
     }
 
-    public getTracks(): string[] {
+    protected getTracks(): string[] {
         function importAll(r: __WebpackModuleApi.RequireContext): string[] {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             return r.keys().map(r).map((el: any) => {return el.default})

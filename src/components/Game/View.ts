@@ -1,4 +1,5 @@
 /* eslint-disable require-jsdoc */
+import Config from '../Config'
 import HTMLItem from '../HTMLItem'
 import Game from './Game'
 import Hand from './Hand'
@@ -16,10 +17,24 @@ export default class View extends HTMLItem {
         this.hud = new Hud(<HTMLDivElement>this.dom)
     }
 
-    render(): void {
+    public render(): void {
         super.render()
         this.game.render()
         this.hand.render()
         this.hud.render()
+    }
+
+    public show(): void {
+        super.show()
+        
+        Config.game.started = true
+    }
+
+    public update(): void {
+        super.update()
+
+        this.game.update()
+        this.hand.update()
+        this.hud.update()
     }
 }

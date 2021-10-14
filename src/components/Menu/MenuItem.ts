@@ -33,8 +33,6 @@ export default class MenuImage
 
     public onClick(): void {
         if (this.selectable) {
-            console.log( this.dom.id )
-
             if (this.dom.id === 'close') {
                 window.close()
             }

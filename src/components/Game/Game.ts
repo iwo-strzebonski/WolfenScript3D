@@ -6,7 +6,7 @@ export default class Game extends HTMLItem {
         super(container, 'canvas', null, 'game')
     }
 
-    render(): void {
+    public render(): void {
         super.render()
     }
 }

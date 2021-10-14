@@ -1,0 +1,13 @@
+#loading-screen img {
+    position: absolute
+}
+
+#logo {
+    left: 206px;
+    top: 8px;
+}
+
+#pc13 {
+    bottom: 64px;
+    right: 32px;
+}

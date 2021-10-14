@@ -6,7 +6,7 @@ export default class Hud extends HTMLItem {
         super(container, 'div', null, 'hud')
     }
 
-    render(): void {
+    public render(): void {
         super.render()
     }
 }
