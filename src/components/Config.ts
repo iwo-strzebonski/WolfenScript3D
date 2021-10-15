@@ -23,7 +23,8 @@ const Config = {
         fire: false,
         fireable: true,
         fireUp: true,
-        ammo: 8
+        ammo: 8,
+        isRunning: false
     }
 }
 

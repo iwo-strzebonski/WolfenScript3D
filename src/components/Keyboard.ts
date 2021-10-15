@@ -43,6 +43,10 @@ export default class Keyboard {
             Config.game.weapon = parseInt(e.key) - 1
 
             break
+
+        case Config.controls.run:
+            Config.game.isRunning = true
+            break
         }
     }
 
@@ -53,6 +57,11 @@ export default class Keyboard {
                 Config.game.fireable = true
                 Config.game.fireUp = true
             }
+
+            break
+
+        case Config.controls.run:
+            Config.game.isRunning = false
             break
         }
     }
