@@ -10,7 +10,7 @@ export default class Menu extends HTMLItem {
     private start: MenuItem
     private close: MenuItem
 
-    constructor(container: HTMLDivElement) {
+    constructor(container: HTMLElement) {
         super(container, 'div')
         this.dom.id = 'menu'
         this.dom.ontransitionend = this.onTransitionEnd.bind(this)

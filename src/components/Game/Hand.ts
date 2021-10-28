@@ -15,7 +15,7 @@ export default class Hand extends HTMLItem {
     private ctx: CanvasRenderingContext2D
     private then = 0
 
-    constructor(container: HTMLDivElement) {
+    constructor(container: HTMLElement) {
         super(container, 'canvas', null, 'hand')
         this.img = SpriteLoader.getSprite(0)
         this.audioController = new AudioController()
@@ -26,9 +26,7 @@ export default class Hand extends HTMLItem {
         canvas.height = 512
 
         this.ctx = canvas.getContext('2d')!
-        this.ctx.imageSmoothingEnabled = false // true
-        // this.ctx.globalAlpha = 0.5
-        // this.ctx.imageSmoothingQuality = 'high'
+        this.ctx.imageSmoothingEnabled = false
     }
 
     public render(): void {
@@ -83,7 +81,6 @@ export default class Hand extends HTMLItem {
                     break
 
                 case 3:
-                    // this.audioController.play(13)
                     this.audioController.play(10)
                     break
                 }

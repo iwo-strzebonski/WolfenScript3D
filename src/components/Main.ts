@@ -18,7 +18,7 @@ export default class Main {
     private musicController: MusicController
     private audioController: AudioController
     
-    constructor(container: HTMLDivElement) {
+    constructor(container: HTMLElement) {
         this.loadingScreen = new LoadingScreen(container)
         this.menu = new Menu(container)
         this.view = new View(container)
@@ -35,9 +35,6 @@ export default class Main {
         this.view.hide()
         
         this.then = Date.now()
-
-        console.log('ready')
-
         this.render()
     }
 

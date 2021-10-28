@@ -9,7 +9,7 @@ export default class MenuImage
     public selectable = true
     
     constructor(
-        container: HTMLDivElement,
+        container: HTMLElement,
         tag: string,
         innerText: 
             | string

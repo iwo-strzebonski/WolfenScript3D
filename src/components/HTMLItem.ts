@@ -1,12 +1,12 @@
 /* eslint-disable require-jsdoc */
 export default class HTMLItem {
-    private readonly container: HTMLDivElement
+    private readonly container: HTMLElement
     protected dom: HTMLElement
 
     public state: number
 
     constructor(
-        container: HTMLDivElement,
+        container: HTMLElement,
         tag: string,
         innerText: 
             | string

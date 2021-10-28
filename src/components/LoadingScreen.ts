@@ -8,7 +8,7 @@ import pc13 from '../img/loading_screen/pc13.png'
 import welcome from '../img/loading_screen/welcome.png'
 
 export default class LoadingScreen extends HTMLItem {
-    constructor(container: HTMLDivElement) {
+    constructor(container: HTMLElement) {
         super(container, 'div')
         this.dom.id = 'loading-screen'
         this.dom.onclick = this.onMouseClick.bind(this)

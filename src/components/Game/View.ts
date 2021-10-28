@@ -10,11 +10,11 @@ export default class View extends HTMLItem {
     public hand: Hand
     public hud: Hud
 
-    constructor(container: HTMLDivElement) {
+    constructor(container: HTMLElement) {
         super(container, 'div', null, 'view')
-        this.game = new Game(<HTMLDivElement>this.dom)
-        this.hand = new Hand(<HTMLDivElement>this.dom)
-        this.hud = new Hud(<HTMLDivElement>this.dom)
+        this.game = new Game(this.dom)
+        this.hand = new Hand(this.dom)
+        this.hud = new Hud(this.dom)
     }
 
     public render(): void {
@@ -26,7 +26,7 @@ export default class View extends HTMLItem {
 
     public show(): void {
         super.show()
-        
+        // this.hand.hide()
         Config.game.started = true
     }
 

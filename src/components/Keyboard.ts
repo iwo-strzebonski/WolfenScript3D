@@ -2,9 +2,9 @@
 import Config from './Config'
 
 export default class Keyboard {
-    container: HTMLDivElement
+    container: HTMLElement
 
-    constructor(container: HTMLDivElement) {
+    constructor(container: HTMLElement) {
         this.container = container
         document.body.onkeydown = (e) => this.onKeyDown(e)
         document.body.onkeyup = (e) => this.onKeyUp(e)

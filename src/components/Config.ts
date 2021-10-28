@@ -12,7 +12,7 @@ const Config = {
     },
     sound: {
         soundVolume: 1,
-        musicVolume: 0.5
+        musicVolume: 1
     },
     engine: {
         interval: 1000 / FPS

@@ -2,7 +2,7 @@
 import HTMLItem from '../HTMLItem'
 
 export default class Hud extends HTMLItem {
-    constructor(container: HTMLDivElement) {
+    constructor(container: HTMLElement) {
         super(container, 'div', null, 'hud')
     }
 
