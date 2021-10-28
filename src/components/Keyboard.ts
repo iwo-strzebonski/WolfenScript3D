@@ -40,7 +40,9 @@ export default class Keyboard {
         case '3':
         case '4':
             Config.game.fire = false
-            Config.game.weapon = parseInt(e.key) - 1
+            Config.game.weapon = parseInt(e.key) - 1 <= Config.game.bestWeapon
+                ? parseInt(e.key) - 1
+                : Config.game.weapon
 
             break
 

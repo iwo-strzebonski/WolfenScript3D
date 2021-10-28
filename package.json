@@ -13,6 +13,7 @@
   "dependencies": {
     "@types/webpack-env": "^1.16.2",
     "css-loader": "^6.3.0",
+    "gl-matrix": "^3.4.3",
     "style-loader": "^3.3.0",
     "webpack-dev-server": "^4.3.0"
   },

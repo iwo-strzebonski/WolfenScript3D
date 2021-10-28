@@ -12,19 +12,20 @@ const Config = {
     },
     sound: {
         soundVolume: 1,
-        musicVolume: 1
+        musicVolume: 0.5
     },
     engine: {
         interval: 1000 / FPS
     },
     game: {
         started: false,
-        weapon: 1,
+        isRunning: false,
         fire: false,
         fireable: true,
         fireUp: true,
+        bestWeapon: 2,
+        weapon: 1,
         ammo: 8,
-        isRunning: false
     }
 }
 

@@ -26,8 +26,8 @@ export default class Hand extends HTMLItem {
         canvas.height = 512
 
         this.ctx = canvas.getContext('2d')!
+        this.ctx.imageSmoothingEnabled = false // true
         // this.ctx.globalAlpha = 0.5
-        this.ctx.imageSmoothingEnabled = false
         // this.ctx.imageSmoothingQuality = 'high'
     }
 
@@ -61,8 +61,6 @@ export default class Hand extends HTMLItem {
         }
 
         if (Config.game.fire) {
-            console.log(Config.game.ammo)
-
             if (!Config.game.ammo) {
                 Config.game.weapon = 0
             }
@@ -110,6 +108,8 @@ export default class Hand extends HTMLItem {
                         }
 
                         Config.game.ammo--
+
+                        if (!Config.game.ammo) this.audioController.play(46)
                     }
                 } else {
                     this.state = 0
