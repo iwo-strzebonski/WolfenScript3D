@@ -3,13 +3,13 @@ import { mat4 } from 'gl-matrix'
 import Cube from './Cube'
 
 export default class WebGL {
-    cube: Cube
+    object: Cube
     gl: WebGLRenderingContext
     buffers: {
         position: WebGLBuffer | null;
         color: WebGLBuffer | null;
         indices: WebGLBuffer | null
-    }
+    }[] = []
     programInfo: {
         program: WebGLProgram;
         attribLocations: {
@@ -23,7 +23,7 @@ export default class WebGL {
     }
 
     constructor(gl: WebGLRenderingContext) {
-        this.cube = new Cube()
+        this.object = new Cube(2)
 
         this.gl = gl
 
@@ -75,20 +75,18 @@ export default class WebGL {
             }
         }
 
-        this.buffers = this.initBuffers()
+        this.buffers.push(this.initBuffers())
     }
 
     public render(): void {
-        this.cube.setTranslation(0, 0, -6)
-        // this.cube.setRotation(1, undefined, undefined, 1)
+        // this.object.setTranslation(0, 0, -6)
     }
 
     public update(): void {
-        this.drawScene(this.programInfo, this.buffers)
+        this.drawScene(this.programInfo, this.buffers[0])
     }
 
     private initBuffers() {
-        const cube = new Cube()
         let colors: number[] = []
 
         const positionBuffer = this.gl.createBuffer()
@@ -97,12 +95,12 @@ export default class WebGL {
 
         this.gl.bufferData(
             this.gl.ARRAY_BUFFER,
-            new Float32Array(cube.posList),
+            new Float32Array(this.object.positions),
             this.gl.STATIC_DRAW
         )
 
-        for (let j = 0; j < cube.faceColors.length; ++j) {
-            const c = cube.faceColors[j]
+        for (let j = 0; j < this.object.faceColors.length; ++j) {
+            const c = this.object.faceColors[j]
 
             colors = colors.concat(c, c, c, c)
         }
@@ -165,6 +163,13 @@ export default class WebGL {
         const zNear = 0.1
         const zFar = 100.0
         const projectionMatrix = mat4.create()
+        const modelViewMatrix = mat4.create()
+    
+        mat4.translate(
+            modelViewMatrix,
+            modelViewMatrix,
+            [-0.0, 0.0, -6.0]
+        )
 
         mat4.perspective(
             projectionMatrix,
@@ -180,7 +185,6 @@ export default class WebGL {
             const normalize = false
             const stride = 0
             const offset = 0
-            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffers.position)
             this.gl.vertexAttribPointer(
                 programInfo.attribLocations.vertexPosition,
                 numComponents,
@@ -198,7 +202,6 @@ export default class WebGL {
             const normalize = false
             const stride = 0
             const offset = 0
-            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffers.color)
             this.gl.vertexAttribPointer(
                 programInfo.attribLocations.vertexColor,
                 numComponents,
@@ -210,6 +213,8 @@ export default class WebGL {
                 programInfo.attribLocations.vertexColor)
         }
 
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffers.position)
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffers.color)
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, buffers.indices)
 
         this.gl.useProgram(programInfo.program)
@@ -221,7 +226,7 @@ export default class WebGL {
         this.gl.uniformMatrix4fv(
             programInfo.uniformLocations.modelViewMatrix,
             false,
-            this.cube.matrix)
+            modelViewMatrix)
 
         {
             const vertexCount = 36

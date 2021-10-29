@@ -1,55 +1,49 @@
 /* eslint-disable require-jsdoc */
-import { mat4 } from 'gl-matrix'
 
 export default class Cube {
-    private rotation: number
-    private offset = {
-        x: 0,
-        y: 0,
-        z: 0
-    }
-
-    public matrix = mat4.create() // modelViewMatrix
-    public posList: number[]
+    public positions: number[]
     public faceColors: Array<number[]>
+    public rotation: number
 
-    constructor() {
-        this.posList = [
+    constructor(size: number) {
+        const k = size / 2
+
+        this.positions = [
             // Front face
-            -1.0, -1.0,  1.0,
-            1.0, -1.0,  1.0,
-            1.0,  1.0,  1.0,
-            -1.0,  1.0,  1.0,
+            -k, -k,  k,
+            k, -k,  k,
+            k,  k,  k,
+            -k,  k,  k,
     
             // Back face
-            -1.0, -1.0, -1.0,
-            -1.0,  1.0, -1.0,
-            1.0,  1.0, -1.0,
-            1.0, -1.0, -1.0,
+            -k, -k, -k,
+            -k,  k, -k,
+            k,  k, -k,
+            k, -k, -k,
     
             // Top face
-            -1.0,  1.0, -1.0,
-            -1.0,  1.0,  1.0,
-            1.0,  1.0,  1.0,
-            1.0,  1.0, -1.0,
+            -k,  k, -k,
+            -k,  k,  k,
+            k,  k,  k,
+            k,  k, -k,
     
             // Bottom face
-            -1.0, -1.0, -1.0,
-            1.0, -1.0, -1.0,
-            1.0, -1.0,  1.0,
-            -1.0, -1.0,  1.0,
+            -k, -k, -k,
+            k, -k, -k,
+            k, -k,  k,
+            -k, -k,  k,
     
             // Right face
-            1.0, -1.0, -1.0,
-            1.0,  1.0, -1.0,
-            1.0,  1.0,  1.0,
-            1.0, -1.0,  1.0,
+            k, -k, -k,
+            k,  k, -k,
+            k,  k,  k,
+            k, -k,  k,
     
             // Left face
-            -1.0, -1.0, -1.0,
-            -1.0, -1.0,  1.0,
-            -1.0,  1.0,  1.0,
-            -1.0,  1.0, -1.0,
+            -k, -k, -k,
+            -k, -k,  k,
+            -k,  k,  k,
+            -k,  k, -k,
         ]
 
         this.faceColors = [
@@ -62,60 +56,5 @@ export default class Cube {
         ]
 
         this.rotation = 0.0
-    }
-
-    public rotate(
-        rotation: number, xAxis = 0, yAxis = 0, zAxis = 0
-    ): void {
-        this.rotation += rotation
-
-        mat4.rotate(
-            this.matrix,
-            this.matrix,
-            this.rotation,
-            [xAxis, yAxis, zAxis]
-        )
-    }
-
-    public setRotation(
-        rotation = 0, xAxis = 0, yAxis = 0, zAxis = 0
-    ): void {
-        mat4.rotate(
-            this.matrix,
-            this.matrix,
-            rotation - this.rotation,
-            [xAxis, yAxis, zAxis]
-        )
-
-        this.rotation = rotation
-    }
-    
-
-    public translate(offsetX = 0, offsetY = 0, offsetZ = 0): void {
-        this.offset.x += offsetX
-        this.offset.y += offsetY
-        this.offset.z += offsetZ
-
-        mat4.translate(
-            this.matrix,
-            this.matrix,
-            [offsetX, offsetY, offsetZ]
-        )
-    }
-
-    public setTranslation(offsetX = 0, offsetY = 0, offsetZ = 0): void {
-        mat4.translate(
-            this.matrix,
-            this.matrix,
-            [
-                offsetX - this.offset.x,
-                offsetY - this.offset.y,
-                offsetZ - this.offset.z
-            ]
-        )
-
-        this.offset.x = offsetX
-        this.offset.y = offsetY
-        this.offset.z = offsetZ
     }
 }

@@ -3,3 +3,4 @@
 /public
 /src/assets/*
 .DS_store
+.vscode/
