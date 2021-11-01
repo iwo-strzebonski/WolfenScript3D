@@ -11,9 +11,7 @@ export default class Keyboard {
     }
 
     private onKeyDown(e: KeyboardEvent): void {
-        if (!['Control', 'Shift', 'c'].includes(e.key)) {
-            // e.preventDefault()
-        }
+        e.preventDefault()
 
         switch (e.key) {
         case Config.controls.fire:
@@ -46,6 +44,22 @@ export default class Keyboard {
 
             break
 
+        case Config.controls.forward:
+            Config.game.moveForward = true
+            break
+
+        case Config.controls.backward:
+            Config.game.moveBackward = true
+            break
+
+        case Config.controls.left:
+            Config.game.rotateLeft = true
+            break
+
+        case Config.controls.right:
+            Config.game.rotateRight = true
+            break
+
         case Config.controls.run:
             Config.game.isRunning = true
             break
@@ -61,6 +75,23 @@ export default class Keyboard {
             }
 
             break
+            
+        case Config.controls.forward:
+            Config.game.moveForward = false
+            break
+
+        case Config.controls.backward:
+            Config.game.moveBackward = false
+            break
+
+        case Config.controls.left:
+            Config.game.rotateLeft = false
+            break
+
+        case Config.controls.right:
+            Config.game.rotateRight = false
+            break
+
 
         case Config.controls.run:
             Config.game.isRunning = false

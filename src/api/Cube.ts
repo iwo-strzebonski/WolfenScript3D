@@ -1,60 +1,51 @@
 /* eslint-disable require-jsdoc */
 
 export default class Cube {
-    public positions: number[]
-    public faceColors: Array<number[]>
-    public rotation: number
+    public positions: Float32Array
 
     constructor(size: number) {
-        const k = size / 2
-
-        this.positions = [
-            // Front face
-            -k, -k,  k,
-            k, -k,  k,
-            k,  k,  k,
-            -k,  k,  k,
+        this.positions = new Float32Array([
+            0, 0, 0,
+            0, size, 0,
+            size, 0, 0,
+            0, size, 0,
+            size, size, 0,
+            size, 0, 0,
     
-            // Back face
-            -k, -k, -k,
-            -k,  k, -k,
-            k,  k, -k,
-            k, -k, -k,
+            0, 0, size,
+            0, size, size,
+            size, 0, size,
+            0, size, size,
+            size, size, size,
+            size, 0, size,
     
-            // Top face
-            -k,  k, -k,
-            -k,  k,  k,
-            k,  k,  k,
-            k,  k, -k,
+            0, 0, 0,
+            size, 0, 0,
+            0, 0, size,
+            size, 0, 0,
+            size, 0, size,
+            0, 0, size,
     
-            // Bottom face
-            -k, -k, -k,
-            k, -k, -k,
-            k, -k,  k,
-            -k, -k,  k,
+            0, size, 0,
+            size, size, 0,
+            0, size, size,
+            size, size, 0,
+            size, size, size,
+            0, size, size,
     
-            // Right face
-            k, -k, -k,
-            k,  k, -k,
-            k,  k,  k,
-            k, -k,  k,
+            0, 0, 0,
+            0, size, 0,
+            0, 0, size,
+            0, size, 0,
+            0, size, size,
+            0, 0, size,
     
-            // Left face
-            -k, -k, -k,
-            -k, -k,  k,
-            -k,  k,  k,
-            -k,  k, -k,
-        ]
-
-        this.faceColors = [
-            [1.0,  1.0,  1.0,  1.0],
-            [1.0,  0.0,  0.0,  1.0],
-            [0.0,  1.0,  0.0,  1.0],
-            [0.0,  0.0,  1.0,  1.0],
-            [1.0,  1.0,  0.0,  1.0],
-            [1.0,  0.0,  1.0,  1.0],
-        ]
-
-        this.rotation = 0.0
+            size, 0, 0,
+            size, size, 0,
+            size, 0, size,
+            size, size, 0,
+            size, size, size,
+            size, 0, size
+        ])
     }
 }

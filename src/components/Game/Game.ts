@@ -1,30 +1,26 @@
 /* eslint-disable require-jsdoc */
+import WebGLRenderer from '../../api/WebGLRenderer'
 import HTMLItem from '../HTMLItem'
-import WebGL from '../../api/WebGL'
 
 export default class Game extends HTMLItem {
-    private webgl: WebGL
-    private gl: WebGLRenderingContext
-    // private cube: Cube
+    private webglRenderer: WebGLRenderer
 
     constructor(container: HTMLElement) {
         super(container, 'canvas', null, 'game')
         const canvas = <HTMLCanvasElement>this.dom
         canvas.width = 960
         canvas.height = 600
-        
-        this.gl = canvas.getContext('webgl')!
 
-        this.webgl = new WebGL(this.gl)
+        this.webglRenderer = new WebGLRenderer(canvas.getContext('webgl')!)
     }
 
     public render(): void {
         super.render()
-        this.webgl.render()
+        // this.webglRenderer.render()
     }
 
     public update(): void {
         super.update()
-        this.webgl.update()
+        this.webglRenderer.update()
     }
 }

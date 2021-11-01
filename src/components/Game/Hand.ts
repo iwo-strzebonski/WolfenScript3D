@@ -48,13 +48,20 @@ export default class Hand extends HTMLItem {
         let interval: number = Config.engine.interval / 2
 
         switch (Config.game.weapon) {
-        case 2:
-            interval /= 1.25
+        case 0:
+            interval /= 1
             break
 
-        case 0:
+        case 1:
+            interval /= 2
+            break
+
+        case 2:
+            interval /= 1.375
+            break
+
         case 3:
-            interval /= 1.5
+            interval /= 2
             break
         }
 

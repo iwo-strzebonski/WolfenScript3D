@@ -9,11 +9,12 @@
 #hand {
     /* width: 512px;
     height: 512px; */
-    top: 208px;
+    top: 88px;
     left: 224px;
 }
 
 #game {
+    background-color: #383838;
     width: 960px;
     height: 600px;
 }
