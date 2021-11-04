@@ -4,10 +4,12 @@ const Config = {
     controls: {
         forward: 'ArrowUp',
         backward: 'ArrowDown',
-        left: 'ArrowLeft',
-        right: 'ArrowRight',
-        run: 'Shift',
+        rotateLeft: 'ArrowLeft',
+        rotateRight: 'ArrowRight',
         strafe: 'Alt',
+        strafeLeft: 'q',
+        strafeRight: 'e',
+        run: 'Shift',
         fire: 'Control'
     },
     sound: {
@@ -30,6 +32,7 @@ const Config = {
         moveBackward: false,
         rotateLeft: false,
         rotateRight: false,
+        strafe: false,
         strafeLeft: false,
         strafeRight: false,
         

@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 import { mat4, vec3, vec4 } from '../@types/mat4GL'
 
 export const mat4GL = {
@@ -366,5 +364,19 @@ export const mat4GL = {
         }
 
         return [vec[0], vec[1], vec[2]]
+    },
+
+
+    vectorSum(a: vec3, b: vec3): vec3 {
+        return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]
+    },
+
+    /**
+     * Get position of a 4D matrix
+     * @param m {mat4} - 4D matrix
+     * @returns {vec3} position of matrix
+     */
+    getMatrixPos(m: mat4): vec3 {
+        return [m[12], m[13], m[14]]
     }
 }

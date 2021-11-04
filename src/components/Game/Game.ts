@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-import WebGLRenderer from '../../api/WebGLRenderer'
+import WebGLRenderer from './WebGLRenderer'
 import HTMLItem from '../HTMLItem'
 
 export default class Game extends HTMLItem {
