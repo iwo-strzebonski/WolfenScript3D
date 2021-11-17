@@ -5,7 +5,8 @@ import { mat4GL } from '../../api/mat4GL'
 
 import { mat4, vec3 } from '../../@types/mat4GL'
 
-import wall1 from '../../img/textures/wall1.png'
+import wall1 from '../../img/textures/gray/wall1.png'
+import wall2 from '../../img/textures/gray/wall2.png'
 
 export default class WebGLRenderer {
     private colliders: Cube[] = []
@@ -39,6 +40,8 @@ export default class WebGLRenderer {
         this.gl = gl
         this.aspect = gl.canvas.width / gl.canvas.height
 
+        this.colliders.push(new Cube(2))
+        this.colliders.push(new Cube(2))
         this.colliders.push(new Cube(2))
         this.colliders.push(new Cube(2))
 
@@ -150,7 +153,6 @@ export default class WebGLRenderer {
                     + Config.game.rotateRight
                 ) * Math.PI / 72 * (1 + +Config.game.isRunning)
                 : 0
-
 
         if (this.cameraRotationY > 2 * Math.PI) {
             this.cameraRotationY -= 2 * Math.PI
@@ -411,6 +413,23 @@ export default class WebGLRenderer {
         const img = new Image()
         img.crossOrigin = ''
         img.src = wall1
+        img.width = 64
+        img.height = 64
+        img.onload = () => {
+            this.gl.bindTexture(this.gl.TEXTURE_2D, texture)
+            this.gl.texImage2D(
+                this.gl.TEXTURE_2D,
+                0,
+                this.gl.RGBA,
+                this.gl.RGBA,
+                this.gl.UNSIGNED_BYTE,
+                img
+            )
+            this.gl.generateMipmap(this.gl.TEXTURE_2D)
+        }
+        
+        img.crossOrigin = ''
+        img.src = wall2
         img.width = 64
         img.height = 64
         img.onload = () => {
