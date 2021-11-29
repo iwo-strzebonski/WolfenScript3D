@@ -1,7 +1,13 @@
 /* eslint-disable require-jsdoc */
-import { trslnData } from '../@types/mat4GL'
-
 import Config from '../Config'
+
+import { perspective } from './mat4GL'
+import { trslnData, mat4 } from '../@types/mat4GL'
+
+const fov = Math.PI / 3
+const aspect = Config.engine.canvasWidth / Config.engine.canvasHeight
+const zNear = 1
+const zFar = 100
 
 export const calculateTranslation = (): trslnData => {
     const xTranslation = 
@@ -29,4 +35,10 @@ export const calculateTranslation = (): trslnData => {
             : 0
 
     return [xTranslation, zTranslation, yRotation]
+}
+
+export const createProjectionMatrix = (): mat4 => {
+    return perspective(
+        fov, aspect, zNear, zFar
+    )
 }

@@ -7,7 +7,7 @@ import {
     translate
 } from './mat4GL'
 
-import WebGLRenderer from './WebGLRenderer'
+import { createProjectionMatrix } from './WebGLHelpers'
 import WebGlColliders from './WebGLColliders'
 
 import wall1 from '../img/textures/gray/01.png'
@@ -35,12 +35,10 @@ export default class WebGLCore {
     public cameraTranslateZ = 0
     public cameraRotationY = 0
 
-    private webGLRenderer: WebGLRenderer
     private webGLColliders = new WebGlColliders()
 
     constructor(gl: WebGLRenderingContext) {
         this.gl = gl
-        this.webGLRenderer = new WebGLRenderer(gl)
 
         const vsSource = `
         attribute vec4 a_position;
@@ -117,11 +115,10 @@ export default class WebGLCore {
         }
     }
 
-
     public update(): void {
         this.updateWebGL()
 
-        const projectionMatrix = this.webGLRenderer.createProjectionMatrix()
+        const projectionMatrix = createProjectionMatrix()
         const viewMatrix = inverse(this.cameraMatrix)
 
         const viewProjectionMatrix = multiply(

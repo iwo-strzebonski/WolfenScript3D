@@ -1,4 +1,5 @@
 /* eslint-disable require-jsdoc */
+import Config from '../../Config'
 import WebGLCore from '../../lib/WebGLCore'
 import HTMLItem from '../HTMLItem'
 
@@ -8,8 +9,8 @@ export default class Game extends HTMLItem {
     constructor(container: HTMLElement) {
         super(container, 'canvas', null, 'game')
         const canvas = <HTMLCanvasElement>this.dom
-        canvas.width = 960
-        canvas.height = 600
+        canvas.width = Config.engine.canvasWidth
+        canvas.height = Config.engine.canvasHeight
 
         this.webglCore = new WebGLCore(canvas.getContext('webgl')!)
     }

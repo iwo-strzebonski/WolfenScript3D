@@ -12,7 +12,7 @@ export default class Primitive {
     constructor(pos: Float32Array) {
         const positions = pos
         const matrix = xRotation(Math.PI)
-    
+
         for (let ii = 0; ii < positions.length; ii += 3) {
             const vector = vectorMultiply(
                 [

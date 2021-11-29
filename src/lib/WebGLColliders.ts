@@ -47,7 +47,7 @@ export default class WebGlColliders {
         return [cameraMatrix, cameraRotationY]
     }
 
-    // TODO: coś się popsuło przy kolizjach przy tylnej ścianie
+    // TODO: coś się popsuło przy kolizjach
     public movePlayer(cameraMatrix: mat4, cameraRotationY: number): mat4 {
         const trnsl: vec3 = calculateTranslation()
         let pos: vec3

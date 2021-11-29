@@ -18,7 +18,9 @@ const Config = {
     },
     engine: {
         interval: 1000 / FPS,
-        playerHeight: 1
+        playerHeight: 1,
+        canvasWidth: 960,
+        canvasHeight: 600
     },
     game: {
         started: false,
