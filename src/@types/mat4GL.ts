@@ -31,3 +31,14 @@ export type vec3 = [
 export type vec4 = [
     number, number, number, number
 ]
+
+/**
+ * m: {number} - forward/backward movement
+ * 
+ * s: {number} - left/right strafe
+ * 
+ * r: {number} - left/right rotation
+ */
+export type trslnData = [
+    number, number, number
+]

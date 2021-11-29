@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-import Config from '../Config'
+import Config from '../../Config'
 import HTMLItem from '../HTMLItem'
 import Game from './Game'
 import Hand from './Hand'

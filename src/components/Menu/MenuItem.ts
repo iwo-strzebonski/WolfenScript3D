@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import HTMLItem from '../HTMLItem'
-import IMenuImage from '../../api/IMenuImage'
-import IMenuOption from '../../api/IMenuOption'
+import IMenuImage from '../../interfaces/IMenuImage'
+import IMenuOption from '../../interfaces/IMenuOption'
 
 export default class MenuImage
     extends HTMLItem

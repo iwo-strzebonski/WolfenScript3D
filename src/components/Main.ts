@@ -5,7 +5,7 @@ import View from './Game/View'
 import MusicController from './Audio/MusicController'
 import AudioController from './Audio/AudioController'
 import Keyboard from './Keyboard'
-import Config from './Config'
+import Config from '../Config'
 
 export default class Main {
     private then: number

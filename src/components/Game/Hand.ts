@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc */
 import AudioController from '../Audio/AudioController'
-import Config from '../Config'
+import Config from '../../Config'
 import HTMLItem from '../HTMLItem'
 import SpriteLoader from './SpriteLoader'
 

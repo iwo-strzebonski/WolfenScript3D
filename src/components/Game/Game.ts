@@ -1,9 +1,9 @@
 /* eslint-disable require-jsdoc */
-import WebGLRenderer from './WebGLRenderer'
+import WebGLCore from '../../lib/WebGLCore'
 import HTMLItem from '../HTMLItem'
 
 export default class Game extends HTMLItem {
-    private webglRenderer: WebGLRenderer
+    private webglCore: WebGLCore
 
     constructor(container: HTMLElement) {
         super(container, 'canvas', null, 'game')
@@ -11,16 +11,15 @@ export default class Game extends HTMLItem {
         canvas.width = 960
         canvas.height = 600
 
-        this.webglRenderer = new WebGLRenderer(canvas.getContext('webgl')!)
+        this.webglCore = new WebGLCore(canvas.getContext('webgl')!)
     }
 
     public render(): void {
         super.render()
-        // this.webglRenderer.render()
     }
 
     public update(): void {
         super.update()
-        this.webglRenderer.update()
+        this.webglCore.update()
     }
 }
