@@ -2,7 +2,7 @@
 import {
     xRotation,
     vectorMultiply
-} from '../mat4GL'
+} from '../../lib/mat4GL'
 import { vec3 } from '../../@types/mat4GL'
 
 export default class Primitive {

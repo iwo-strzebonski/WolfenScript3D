@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc */
 import Config from '../../Config'
-import WebGLCore from '../../lib/WebGLCore'
+import WebGLCore from '../../core/WebGLCore'
 import HTMLItem from '../HTMLItem'
 
 export default class Game extends HTMLItem {
