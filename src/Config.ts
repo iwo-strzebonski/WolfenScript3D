@@ -1,4 +1,4 @@
-const FPS = 70
+const FPS = 60
 
 const Config = {
     controls: {
@@ -13,23 +13,25 @@ const Config = {
         fire: 'Control'
     },
     sound: {
-        soundVolume: 1,
-        musicVolume: 1
+        soundVolume: 0.5,
+        musicVolume: 0.2
     },
     engine: {
         interval: 1000 / FPS,
         playerHeight: 1,
         canvasWidth: 960,
-        canvasHeight: 600
+        canvasHeight: 600,
+        tileSize: 2
     },
     game: {
         started: false,
-        isRunning: false,
+        map: 0,
 
         fire: false,
         fireable: true,
         fireUp: true,
         
+        isRunning: false,
         moveForward: false,
         moveBackward: false,
         rotateLeft: false,
@@ -38,6 +40,7 @@ const Config = {
         strafeLeft: false,
         strafeRight: false,
         
+        // bestWeapon: 1,
         bestWeapon: 2,
         weapon: 1,
         // ammo: 8,

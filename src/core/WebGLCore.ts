@@ -4,15 +4,21 @@ import {
     inverse,
     multiply,
     translation,
-    translate
-} from './mat4GL'
+    translate,
+    yRotate
+} from '../lib/mat4GL'
 
-import { createProjectionMatrix } from './WebGLHelpers'
+import { createProjectionMatrix } from '../lib/WebGLHelpers'
 import WebGlColliders from './WebGLColliders'
+
+import Plane from './primitives/Plane'
+
+import { mat4 } from '../@types/mat4GL'
+import MapLoader from './MapLoader'
 
 import wall1 from '../img/textures/gray/01.png'
 import wall2 from '../img/textures/gray/02.png'
-import { mat4 } from '../@types/mat4GL'
+import Gate from './objects/Gate'
 
 export default class WebGLCore {
     private program: WebGLProgram
@@ -27,15 +33,16 @@ export default class WebGLCore {
     private positionBuffer: WebGLBuffer | null
     private texcoordBuffer: WebGLBuffer | null
 
-    private cameraMatrix = translation(
-        [1, -Config.engine.playerHeight, 4.4]
-    )
-
     public cameraTranslateX = 0
     public cameraTranslateZ = 0
     public cameraRotationY = 0
 
-    private webGLColliders = new WebGlColliders()
+    private mapLoader = new MapLoader(Config.game.map)
+    private webGLColliders = new WebGlColliders(this.mapLoader.map)
+
+    private cameraMatrix = translation(
+        this.mapLoader.playerStartingPos
+    )
 
     constructor(gl: WebGLRenderingContext) {
         this.gl = gl
@@ -89,25 +96,97 @@ export default class WebGLCore {
     }
 
     public render(viewProjectionMatrix: mat4): void {
-        for (const i in this.webGLColliders.colliders) {
+        for (const i in this.mapLoader.map) {
             const points =
-                this.webGLColliders.colliders[i].getConstructionPoints
+                this.mapLoader.map[i].getConstructionPoints
             const offset = 0
             const count = points.length / 3
 
             this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer)
             this.setGeometry(
-                this.webGLColliders.colliders[i].getConstructionPoints
+                this.mapLoader.map[i].getConstructionPoints
             )
 
             this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.texcoordBuffer)
             this.setTexcoords(count / 6)
 
-            const x = parseInt(i) * 2
-            const z = 0
+            let matrix = translate(
+                viewProjectionMatrix,
+                this.mapLoader.map[i].pos
+            )
 
-            const matrix = translate(viewProjectionMatrix, [x, 0, z])
-            this.webGLColliders.colliders[i].pos = [x, 0, z]
+            // TODO: fujka! trzeba to uporządkować
+            if (
+                this.mapLoader.map[i] instanceof Plane &&
+                !(this.mapLoader.map[i] instanceof Gate)
+            ) {
+                if ((<Plane>this.mapLoader.map[i]).rotate) {
+                    matrix = translate(
+                        matrix,
+                        [-1, 0, 0]
+                    )
+
+                    matrix = yRotate(
+                        matrix, Math.PI / 2
+                    )
+                } else {
+                    matrix = translate(
+                        matrix,
+                        [0, 0, -1]
+                    )
+                }
+            } else if (
+                (this.mapLoader.map[i] instanceof Gate)
+            ) {
+                if ((<Gate>this.mapLoader.map[i]).mode === 0) {
+                    if ((<Plane>this.mapLoader.map[i]).rotate) {
+                        matrix = translate(
+                            matrix,
+                            [1, 0, 0]
+                        )
+    
+                        matrix = yRotate(
+                            matrix, Math.PI / 2
+                        )
+                    } else {
+                        matrix = translate(
+                            matrix,
+                            [0, 0, 1]
+                        )
+                    }
+                } else {
+                    if ((<Plane>this.mapLoader.map[i]).rotate) {
+                        matrix = translate(
+                            matrix,
+                            [(
+                                (<Gate>this.mapLoader.map[i]).mode === 1
+                                    ? 2
+                                    : 0
+                            ),
+                            -2,
+                            0
+                            ]
+                        )
+    
+                        matrix = yRotate(
+                            matrix, Math.PI / 2
+                        )
+                    } else {
+                        matrix = translate(
+                            matrix,
+                            [
+                                0,
+                                0,
+                                (
+                                    (<Gate>this.mapLoader.map[i]).mode === 1
+                                        ? -2
+                                        : 0
+                                )
+                            ]
+                        )
+                    }
+                } 
+            }
 
             this.gl.uniformMatrix4fv(this.matrixLocation, false, matrix)
             this.gl.uniform1i(this.textureLocation, 0)
@@ -127,7 +206,7 @@ export default class WebGLCore {
 
         this.render(viewProjectionMatrix)
 
-        this.cameraMatrix = this.webGLColliders.movePlayer(
+        this.cameraMatrix = this.webGLColliders.collidePlayer(
             this.cameraMatrix,
             this.cameraRotationY
         )

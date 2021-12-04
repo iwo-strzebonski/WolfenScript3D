@@ -17,7 +17,7 @@ export default class AudioController {
     protected getTracks(): string[] {
         function importAll(r: __WebpackModuleApi.RequireContext): string[] {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            return r.keys().map(r).map((el: any) => {return el.default})
+            return r.keys().map(r).map((el: any) => el.default)
         }
 
         const context = 

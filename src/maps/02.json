@@ -1,0 +1,4 @@
+[
+    { "x": 57, "z": 29, "type": "start", "rotation": "right" },
+    { "x": 60, "z": 29, "type": "gate", "rotate": false }
+]

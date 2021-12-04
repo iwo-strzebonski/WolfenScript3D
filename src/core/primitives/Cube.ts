@@ -2,7 +2,9 @@
 import Primitive from './Primitive'
 
 export default class Cube extends Primitive {
-    constructor(size: number) {
+    public secret: boolean
+
+    constructor(size: number, secret?: boolean) {
         const positions = new Float32Array([
             0, 0, 0,
             0, size, 0,
@@ -48,5 +50,7 @@ export default class Cube extends Primitive {
         ])
 
         super(positions)
+
+        this.secret = secret || false
     }
 }

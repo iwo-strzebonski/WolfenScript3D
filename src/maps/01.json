@@ -1,0 +1,24 @@
+[
+    { "x": 57, "z": 29, "type": "start", "rotation": "right" },
+
+    { "x": 60, "z": 29, "type": "gate", "rotate": false },
+
+    { "x": 57, "z": 27, "type": "wall", "color": "blue_crates" },
+    { "x": 60, "z": 27, "type": "wall", "color": "blue_crates" },
+    { "x": 55, "z": 29, "type": "wall", "color": "blue_crates" },
+    { "x": 56, "z": 31, "type": "wall", "color": "blue_crates" },
+    { "x": 57, "z": 31, "type": "wall", "color": "blue_crates" },
+    { "x": 60, "z": 31, "type": "wall", "color": "blue_crates" },
+
+    { "x": 55, "z": 27, "type": "wall", "color": "blue" },
+    { "x": 56, "z": 27, "type": "wall", "color": "blue" },
+    { "x": 58, "z": 27, "type": "wall", "color": "blue" },
+    { "x": 59, "z": 27, "type": "wall", "color": "blue" },
+    { "x": 55, "z": 28, "type": "wall", "color": "blue" },
+    { "x": 60, "z": 28, "type": "wall", "color": "blue" },
+    { "x": 55, "z": 30, "type": "wall", "color": "blue" },
+    { "x": 60, "z": 30, "type": "wall", "color": "blue" },
+    { "x": 55, "z": 31, "type": "wall", "color": "blue" },
+    { "x": 58, "z": 31, "type": "wall", "color": "blue" },
+    { "x": 59, "z": 31, "type": "wall", "color": "blue" }
+]
