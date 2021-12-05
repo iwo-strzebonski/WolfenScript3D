@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import Config from '../Config'
 
-import { perspective } from '../lib/mat4GL'
+import { perspective } from './mat4GL'
 import { trslnData, mat4 } from '../@types/mat4GL'
 
 const fov = Math.PI / 3
