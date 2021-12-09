@@ -26,7 +26,6 @@ export default class View extends HTMLItem {
 
     public show(): void {
         super.show()
-        // this.hand.hide()
         Config.game.started = true
     }
 

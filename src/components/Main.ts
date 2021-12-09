@@ -54,14 +54,19 @@ export default class Main {
                 this.loadingScreen.state = 4
                 this.loadingScreen.hide()
                 this.menu.show()
-                this.view.show()
+                // this.view.show()
                 this.menu.state = 0
             }
 
             if (this.menu.state === 0) {
                 this.musicController.setTrack(this.musicController.play(2))
                 this.menu.state += 0.5
-            } else if (this.menu.state > 0) {
+            } else if (Config.game.started && this.menu.state === 0.5) {
+                this.musicController.setTrack(
+                    this.musicController.play(Config.game.map + 3)
+                )
+                this.menu.state += 0.5
+            } else if (this.menu.state === 1) {
                 this.menu.update()
                 this.view.update()
             }

@@ -1,4 +1,4 @@
-const FPS = 60
+const FPS = 70      // Default: 70
 
 const Config = {
     controls: {
@@ -13,7 +13,7 @@ const Config = {
         fire: 'Control'
     },
     sound: {
-        soundVolume: 0.5,
+        soundVolume: 0.3,
         musicVolume: 0.2
     },
     engine: {
@@ -41,10 +41,10 @@ const Config = {
         strafeRight: false,
         
         // bestWeapon: 1,
-        bestWeapon: 2,
+        bestWeapon: 3,
         weapon: 1,
         // ammo: 8,
-        ammo: 999,
+        ammo: 99,
     }
 }
 

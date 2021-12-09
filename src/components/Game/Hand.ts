@@ -61,7 +61,7 @@ export default class Hand extends HTMLItem {
             break
 
         case 3:
-            interval /= 2
+            interval /= 1.5
             break
         }
 
