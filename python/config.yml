@@ -1,0 +1,55 @@
+---
+blank: '.'
+
+start_up: ','
+start_down: '.'
+start_left: '<'
+start_right: '>'
+
+wall_gray_1: g
+wall_gray_2: G
+wall_blue_1: b
+wall_blue_2: B
+wall_wood: w
+wall_elevator: v
+
+decor_gray_1: f
+decor_gray_2: h
+decor_gray_3: p
+decor_blue_1: c
+decor_blue_2: C
+decor_wood_1: P
+decor_wood_2: H
+decor_elevator_1: e
+decor_elevator_2: E
+
+door_normal: d
+door_rotated: D
+door_locked_normal: k
+door_locked_rotated: K
+door_elevator_normal: l
+door_elevator_rotated: L
+
+guard: '1'
+dog: '2'
+ss: '3'
+
+ammo: '!'
+blood: '@'
+dog_food: '#'
+first_aid: '$'
+food: '%'
+key: '^'
+one_up: '&'
+treasure_cross: '['
+treasure_chalice: ']'
+treasure_chest: '{'
+treasure_crown: '}'
+
+# blocks:
+#   barrel
+#   
+#   table
+#   
+#   
+#   

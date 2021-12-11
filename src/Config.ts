@@ -1,4 +1,4 @@
-const FPS = 70      // Default: 70
+const FPS = 70                  // Default: 70
 
 const Config = {
     controls: {
@@ -10,13 +10,15 @@ const Config = {
         strafeLeft: 'q',
         strafeRight: 'e',
         run: 'Shift',
-        fire: 'Control'
+        fire: 'Control',
+        noClip: 't'
     },
     sound: {
         soundVolume: 0.3,
         musicVolume: 0.2
     },
     engine: {
+        viewRange: 30,          // in tiles
         interval: 1000 / FPS,
         playerHeight: 1,
         canvasWidth: 960,
@@ -45,6 +47,8 @@ const Config = {
         weapon: 1,
         // ammo: 8,
         ammo: 99,
+
+        noClip: false
     }
 }
 

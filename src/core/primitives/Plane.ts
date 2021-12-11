@@ -3,9 +3,9 @@ import Primitive from './Primitive'
 
 export default class Plane extends Primitive {
     public readonly rotate: boolean
-    public openable: boolean
+    public readonly color: string
 
-    constructor(size: number, rotate: boolean, openable?: boolean) {
+    constructor(size: number, rotate: boolean, color: string) {
         const positions = new Float32Array([
             0, 0, 0,
             0, size, 0,
@@ -18,6 +18,6 @@ export default class Plane extends Primitive {
         super(positions)
 
         this.rotate = rotate
-        this.openable = openable || false
+        this.color = color
     }
 }

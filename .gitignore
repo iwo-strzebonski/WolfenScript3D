@@ -4,3 +4,4 @@
 /src/assets/*
 .DS_store
 .vscode/
+out/

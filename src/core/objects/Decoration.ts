@@ -2,10 +2,7 @@
 import Plane from '../primitives/Plane'
 
 export default class Decoration extends Plane {
-    public readonly isCollider: boolean
-
-    constructor(size: number, isCollider: boolean, rotate?: boolean) {
-        super(size, rotate || false)
-        this.isCollider = isCollider
+    constructor(size: number, color: string) {
+        super(size, false, color)
     }
 }

@@ -42,3 +42,8 @@ export type vec4 = [
 export type trslnData = [
     number, number, number
 ]
+
+export type posType = {
+    x: number,
+    z: number
+}

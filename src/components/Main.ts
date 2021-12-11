@@ -53,8 +53,8 @@ export default class Main {
                 this.musicController.pause()
                 this.loadingScreen.state = 4
                 this.loadingScreen.hide()
-                this.menu.show()
-                // this.view.show()
+                // this.menu.show()
+                this.view.show()
                 this.menu.state = 0
             }
 

@@ -14,6 +14,10 @@ export default class Keyboard {
         e.preventDefault()
 
         switch (e.key) {
+        case Config.controls.noClip:
+            Config.game.noClip = !Config.game.noClip
+            break
+
         case Config.controls.fire:
             if (Config.game.started) {
                 Config.game.fireUp = false

@@ -10,6 +10,7 @@ import { vec3, mat4 } from '../@types/mat4GL'
 import { calculateTranslation } from '../lib/WebGLHelpers' 
 
 import Primitive from './primitives/Primitive'
+import Config from '../Config'
 
 export default class WebGlColliders {
     public colliders: Array<Primitive>
@@ -48,42 +49,41 @@ export default class WebGlColliders {
     }
 
     public collidePlayer(cameraMatrix: mat4, cameraRotationY: number): mat4 {
-        let pos: vec3
-
         let matrix = this.movePlayer(cameraMatrix)
+        const pos = getMatrixPos(matrix)
 
-        for (const collider of this.colliders) {
-            pos = getMatrixPos(matrix)
-
-            if (
-                pos[0] >= collider.pos[0] &&
-                pos[0] <= collider.pos[0] + 2
-            ) {
+        if (!Config.game.noClip) {
+            for (const collider of this.colliders) {
                 if (
-                    pos[2] < collider.pos[2] &&
-                    pos[2] > collider.pos[2] - 4
+                    pos[0] >= collider.pos[0] &&
+                    pos[0] <= collider.pos[0] + 2
                 ) {
-                    pos[2] = collider.pos[2] - 4
+                    if (
+                        pos[2] < collider.pos[2] &&
+                        pos[2] > collider.pos[2] - 3.35
+                    ) {
+                        pos[2] = collider.pos[2] - 3.35
+                    } else if (
+                        pos[2] > collider.pos[2] &&
+                        pos[2] < collider.pos[2] + 1.35
+                    ) {
+                        pos[2] = collider.pos[2] + 1.35
+                    }
                 } else if (
-                    pos[2] > collider.pos[2] &&
-                    pos[2] < collider.pos[2] + 2
+                    pos[2] >= collider.pos[2] - 2 &&
+                    pos[2] <= collider.pos[2]
                 ) {
-                    pos[2] = collider.pos[2] + 2
-                }
-            } else if (
-                pos[2] >= collider.pos[2] - 2&&
-                pos[2] <= collider.pos[2]
-            ) {
-                if (
-                    pos[0] < collider.pos[0] &&
-                    pos[0] > collider.pos[0] - 2
-                ) {
-                    pos[0] = collider.pos[0] - 2
-                } else if (
-                    pos[0] > collider.pos[0] &&
-                    pos[0] < collider.pos[0] + 4
-                ) {
-                    pos[0] = collider.pos[0] + 4
+                    if (
+                        pos[0] < collider.pos[0] &&
+                        pos[0] > collider.pos[0] - 1.35
+                    ) {
+                        pos[0] = collider.pos[0] - 1.35
+                    } else if (
+                        pos[0] > collider.pos[0] &&
+                        pos[0] < collider.pos[0] + 3.35
+                    ) {
+                        pos[0] = collider.pos[0] + 3.35
+                    }
                 }
             }
 

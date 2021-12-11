@@ -12,7 +12,7 @@ export default class Game extends HTMLItem {
         canvas.width = Config.engine.canvasWidth
         canvas.height = Config.engine.canvasHeight
 
-        this.webglCore = new WebGLCore(canvas.getContext('webgl')!)
+        this.webglCore = new WebGLCore(canvas.getContext('webgl2')!)
     }
 
     public render(): void {

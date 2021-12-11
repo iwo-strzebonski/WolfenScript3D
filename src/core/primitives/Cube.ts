@@ -3,8 +3,9 @@ import Primitive from './Primitive'
 
 export default class Cube extends Primitive {
     public secret: boolean
+    public readonly color: string
 
-    constructor(size: number, secret?: boolean) {
+    constructor(size: number, color: string, secret?: boolean) {
         const positions = new Float32Array([
             0, 0, 0,
             0, size, 0,
@@ -51,6 +52,7 @@ export default class Cube extends Primitive {
 
         super(positions)
 
+        this.color = color
         this.secret = secret || false
     }
 }

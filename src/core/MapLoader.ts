@@ -7,12 +7,13 @@ import Plane from './primitives/Plane'
 import Primitive from './primitives/Primitive'
 import Gate from './objects/Gate'
 
-import { mapTile } from '../@types/MapLoader'
+import { mapTile, rotations } from '../@types/MapLoader'
 import { vec3 } from '../@types/mat4GL'
 
 export default class MapLoader {
     public map: Array<Primitive> = []
     private mapsList: Array<mapTile>
+    private playerRot: rotations = 'up'
 
     public playerStartingPos: vec3 = [0, 0, 0]
 
@@ -27,59 +28,74 @@ export default class MapLoader {
             return r.keys().map(r).map((el: any) => el)
         }
 
-        const context = require.context('../maps', false, /\.(json)$/)
+        const context = require.context('../maps', false, /\.(ya?ml)$/)
 
         return <mapTile[]> importAll(context)
+    }
+
+    public get playerStartingRot(): number {
+        switch (this.playerRot) {
+        case 'up':
+            return 0
+        case 'down':
+            return Math.PI
+        case 'left':
+            return Math.PI / 2
+        case 'right':
+            return Math.PI * 3 / 2
+        }
     }
 
     public set loadMap(mapNo: number) {
         this.map = []
 
-        let gate: Array<Gate>
+        let door: Array<Gate>
 
-        // for (const tile of this.mapsList[mapNo]) {
         const map: Array<Primitive | null | Primitive[]> = []
+
         for (const i in this.mapsList[mapNo]) {
             const tile: mapTile = this.mapsList[mapNo][i]
             const size = Config.engine.tileSize
 
             switch (tile.type) {
             case 'wall':
-                map.push(new Cube(size))
+                map.push(new Cube(size, tile.color, false))
                 break
 
-            case 'plane':
-                map.push(new Plane(size, tile.rotate!))
+            case 'elevator':
+                map.push(new Plane(size, <boolean>tile.rotation!, tile.color))
                 break
 
-            case 'gate':
-                gate = [
-                    new Gate(size, tile.rotate!, 0),
-                    new Gate(size, tile.rotate!, 1),
-                    new Gate(size, tile.rotate!, 2),
+            case 'door':
+                door = [
+                    new Gate(size, <boolean>tile.rotation!, 0, tile.color),
+                    new Gate(size, <boolean>tile.rotation!, 1, tile.color),
+                    new Gate(size, <boolean>tile.rotation!, 2, tile.color),
                 ]
 
-                gate[0].pos = [tile.x * size, 0, tile.z * size]
-                gate[1].pos = [tile.x * size, 0, tile.z * size]
-                gate[2].pos = [tile.x * size, 0, tile.z * size]
+                door[0].pos = [tile.x * size, 0, tile.z * size]
+                door[1].pos = [tile.x * size, 0, tile.z * size]
+                door[2].pos = [tile.x * size, 0, tile.z * size]
 
-                map.push(gate)
+                map.push(door)
                 break
 
             case 'decoration':
-                map.push(new Decoration(size, tile.isCollider!))
+                map.push(new Decoration(size, 'decoration'))
                 break
             
             case 'pickupable':
-                map.push(new Decoration(size, tile.itemType!))
+                map.push(new Decoration(size, 'pickupable'))
                 break
 
             case 'start':
                 this.playerStartingPos = [
                     tile.x * size + 1,
                     -Config.engine.playerHeight,
-                    tile.z * size - 1.2
+                    tile.z * size - 1
                 ]
+
+                this.playerRot = <rotations>('' + tile.rotation)
                 map.push(null)
                 break
             }

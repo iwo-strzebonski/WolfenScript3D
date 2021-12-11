@@ -5,24 +5,23 @@ import {
     multiply,
     translation,
     translate,
-    yRotate
+    yRotate,
+    getMatrixPos
 } from '../lib/mat4GL'
 
 import { createProjectionMatrix } from '../lib/WebGLHelpers'
 import WebGlColliders from './WebGLColliders'
+import TextureLoader from './TextureLoader'
 
 import Plane from './primitives/Plane'
-
-import { mat4 } from '../@types/mat4GL'
-import MapLoader from './MapLoader'
-
-import wall1 from '../img/textures/gray/01.png'
-import wall2 from '../img/textures/gray/02.png'
 import Gate from './objects/Gate'
 
+import MapLoader from './MapLoader'
+
+import { mat4 } from '../@types/mat4GL'
 export default class WebGLCore {
     private program: WebGLProgram
-    private gl: WebGLRenderingContext
+    private gl: WebGL2RenderingContext
 
     private positionLocation: number
     private texcoordLocation: number
@@ -33,18 +32,18 @@ export default class WebGLCore {
     private positionBuffer: WebGLBuffer | null
     private texcoordBuffer: WebGLBuffer | null
 
-    public cameraTranslateX = 0
-    public cameraTranslateZ = 0
-    public cameraRotationY = 0
-
     private mapLoader = new MapLoader(Config.game.map)
     private webGLColliders = new WebGlColliders(this.mapLoader.map)
+    private textureLoader: TextureLoader
 
-    private cameraMatrix = translation(
-        this.mapLoader.playerStartingPos
+    public cameraRotationY = this.mapLoader.playerStartingRot
+
+    private cameraMatrix = yRotate(
+        translation(this.mapLoader.playerStartingPos),
+        this.cameraRotationY
     )
 
-    constructor(gl: WebGLRenderingContext) {
+    constructor(gl: WebGL2RenderingContext) {
         this.gl = gl
 
         const vsSource = `
@@ -72,8 +71,11 @@ export default class WebGLCore {
         this.program = this.initShaderProgram(vsSource, fsSource)!
 
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height)
-        this.gl.enable(this.gl.DEPTH_TEST)
         this.gl.useProgram(this.program)
+
+        this.gl.enable(this.gl.DEPTH_TEST)
+        this.gl.enable(this.gl.SCISSOR_TEST)
+        // this.gl.enable(this.gl.RASTERIZER_DISCARD)
 
         this.positionLocation = this.gl.getAttribLocation(
             this.program, 'a_position'
@@ -89,108 +91,117 @@ export default class WebGLCore {
         )
 
         this.positionBuffer = this.gl.createBuffer()
-
         this.texcoordBuffer = this.gl.createBuffer()
+        
+        this.textureLoader = new TextureLoader(this.gl)
 
-        this.loadTextures()
+        this.textureLoader.loadTextures()
     }
 
     public render(viewProjectionMatrix: mat4): void {
+        const playerPos = getMatrixPos(this.cameraMatrix)
+
         for (const i in this.mapLoader.map) {
-            const points =
-                this.mapLoader.map[i].getConstructionPoints
-            const offset = 0
-            const count = points.length / 3
-
-            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer)
-            this.setGeometry(
-                this.mapLoader.map[i].getConstructionPoints
-            )
-
-            this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.texcoordBuffer)
-            this.setTexcoords(count / 6)
-
-            let matrix = translate(
-                viewProjectionMatrix,
-                this.mapLoader.map[i].pos
-            )
-
-            // TODO: fujka! trzeba to uporządkować
             if (
-                this.mapLoader.map[i] instanceof Plane &&
-                !(this.mapLoader.map[i] instanceof Gate)
+                Math.sqrt(
+                    (playerPos[0] - this.mapLoader.map[i].pos[0]) ** 2 +
+                    (playerPos[2] - this.mapLoader.map[i].pos[2]) ** 2
+                ) <= Config.engine.viewRange * Config.engine.tileSize
             ) {
-                if ((<Plane>this.mapLoader.map[i]).rotate) {
-                    matrix = translate(
-                        matrix,
-                        [-1, 0, 0]
-                    )
+                const points =
+                this.mapLoader.map[i].getConstructionPoints
+                const offset = 0
+                const count = points.length / 3
 
-                    matrix = yRotate(
-                        matrix, Math.PI / 2
-                    )
-                } else {
-                    matrix = translate(
-                        matrix,
-                        [0, 0, -1]
-                    )
-                }
-            } else if (
-                (this.mapLoader.map[i] instanceof Gate)
-            ) {
-                if ((<Gate>this.mapLoader.map[i]).mode === 0) {
+                this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer)
+                this.setGeometry(
+                    this.mapLoader.map[i].getConstructionPoints
+                )
+
+                this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.texcoordBuffer)
+                this.setTexcoords(count / 6)
+
+                let matrix = translate(
+                    viewProjectionMatrix,
+                    this.mapLoader.map[i].pos
+                )
+
+                // TODO: fujka! trzeba to uporządkować
+                if (
+                    this.mapLoader.map[i] instanceof Plane &&
+                    !(this.mapLoader.map[i] instanceof Gate)
+                ) {
                     if ((<Plane>this.mapLoader.map[i]).rotate) {
                         matrix = translate(
                             matrix,
                             [1, 0, 0]
                         )
-    
+
                         matrix = yRotate(
                             matrix, Math.PI / 2
                         )
                     } else {
                         matrix = translate(
                             matrix,
-                            [0, 0, 1]
+                            [0, 0, -1]
                         )
                     }
-                } else {
-                    if ((<Plane>this.mapLoader.map[i]).rotate) {
-                        matrix = translate(
-                            matrix,
-                            [(
-                                (<Gate>this.mapLoader.map[i]).mode === 1
-                                    ? 2
-                                    : 0
-                            ),
-                            -2,
-                            0
-                            ]
-                        )
-    
-                        matrix = yRotate(
-                            matrix, Math.PI / 2
-                        )
+                } else if (
+                    (this.mapLoader.map[i] instanceof Gate)
+                ) {
+                    if ((<Gate>this.mapLoader.map[i]).mode === 0) {
+                        if ((<Plane>this.mapLoader.map[i]).rotate) {
+                            matrix = translate(
+                                matrix,
+                                [1, 0, 0]
+                            )
+        
+                            matrix = yRotate(
+                                matrix, Math.PI / 2
+                            )
+                        } else {
+                            matrix = translate(
+                                matrix,
+                                [0, 0, -1]
+                            )
+                        }
                     } else {
-                        matrix = translate(
-                            matrix,
-                            [
-                                0,
-                                0,
-                                (
+                        if ((<Plane>this.mapLoader.map[i]).rotate) {
+                            matrix = translate(
+                                matrix,
+                                [(
                                     (<Gate>this.mapLoader.map[i]).mode === 1
+                                        ? 2
+                                        : 0
+                                ),
+                                0,
+                                0
+                                ]
+                            )
+        
+                            matrix = yRotate(
+                                matrix, Math.PI / 2
+                            )
+                        } else {
+                            matrix = translate(
+                                matrix,
+                                [
+                                    0,
+                                    0,
+                                    ((<Gate>this.mapLoader.map[i]).mode === 1
                                         ? -2
                                         : 0
-                                )
-                            ]
-                        )
-                    }
-                } 
-            }
+                                    )
+                                ]
+                            )
+                        }
+                    } 
+                }
 
-            this.gl.uniformMatrix4fv(this.matrixLocation, false, matrix)
-            this.gl.uniform1i(this.textureLocation, 0)
-            this.gl.drawArrays(this.gl.TRIANGLES, offset, count)
+                this.gl.uniformMatrix4fv(this.matrixLocation, false, matrix)
+                this.gl.uniform1i(this.textureLocation, 0)
+                this.gl.drawArrays(this.gl.TRIANGLES, offset, count)
+            }
         }
     }
 
@@ -283,57 +294,6 @@ export default class WebGLCore {
             positionsArray,
             this.gl.STATIC_DRAW
         )
-    }
-
-    private loadTextures() {
-        const texture = this.gl.createTexture()
-        this.gl.bindTexture(this.gl.TEXTURE_2D, texture)
-
-        this.gl.texImage2D(
-            this.gl.TEXTURE_2D,
-            0,
-            this.gl.RGBA,
-            1, 1,
-            0,
-            this.gl.RGBA,
-            this.gl.UNSIGNED_BYTE,
-            new Uint8Array([0, 0, 0, 255])
-        )
-
-        const img = new Image()
-        img.crossOrigin = ''
-        img.src = wall1
-        img.width = 64
-        img.height = 64
-        img.onload = () => {
-            this.gl.bindTexture(this.gl.TEXTURE_2D, texture)
-            this.gl.texImage2D(
-                this.gl.TEXTURE_2D,
-                0,
-                this.gl.RGBA,
-                this.gl.RGBA,
-                this.gl.UNSIGNED_BYTE,
-                img
-            )
-            this.gl.generateMipmap(this.gl.TEXTURE_2D)
-        }
-        
-        img.crossOrigin = ''
-        img.src = wall2
-        img.width = 64
-        img.height = 64
-        img.onload = () => {
-            this.gl.bindTexture(this.gl.TEXTURE_2D, texture)
-            this.gl.texImage2D(
-                this.gl.TEXTURE_2D,
-                0,
-                this.gl.RGBA,
-                this.gl.RGBA,
-                this.gl.UNSIGNED_BYTE,
-                img
-            )
-            this.gl.generateMipmap(this.gl.TEXTURE_2D)
-        }
     }
 
     private loadShader(type: number, source: string): WebGLShader | null {

@@ -15,7 +15,7 @@ export const calculateTranslation = (): trslnData => {
             ? (
                 + Config.game.strafeRight -
                 + Config.game.strafeLeft
-            ) * (0.1 + (+ Config.game.isRunning) * 0.2)
+            ) * (0.15 + (+ Config.game.isRunning) * 0.15)
             : 0
 
     const zTranslation = 
@@ -23,7 +23,7 @@ export const calculateTranslation = (): trslnData => {
             ? (
                 + Config.game.moveBackward -
                 + Config.game.moveForward
-            ) * (0.1 + (+ Config.game.isRunning) * 0.2)
+            ) * (0.15 + (+ Config.game.isRunning) * 0.15)
             : 0
 
     const yRotation = 
@@ -31,7 +31,7 @@ export const calculateTranslation = (): trslnData => {
             ? (
                 + Config.game.rotateLeft -
                 + Config.game.rotateRight
-            ) * Math.PI / 72 * (1 + +Config.game.isRunning)
+            ) * Math.PI / 72 * (1 + (+ Config.game.isRunning) * 1)
             : 0
 
     return [xTranslation, zTranslation, yRotation]

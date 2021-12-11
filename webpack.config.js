@@ -36,6 +36,11 @@ module.exports = {
             {
                 test: /\.(mp3|wav)$/i,
                 loader: 'file-loader',
+            },
+            {
+                test: /\.ya?ml$/,
+                type: 'json',
+                use: 'yaml-loader'
             }
         ]
     },
