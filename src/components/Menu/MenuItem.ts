@@ -1,41 +1,41 @@
 /* eslint-disable require-jsdoc */
 import HTMLItem from '../HTMLItem'
-import IMenuImage from '../../interfaces/IMenuImage'
-import IMenuOption from '../../interfaces/IMenuOption'
 
-export default class MenuImage
-    extends HTMLItem
-    implements IMenuImage, IMenuOption {
-    public selectable = true
+export default class MenuItem extends HTMLItem {
+    private selectable = true
     
     constructor(
         container: HTMLElement,
         tag: string,
-        innerText: 
-            | string
-            | null = null,
-        id: 
-            | string
-            | null = null,
-        className: 
-            | string
-            | null = null
+        className: string,
+        id?: string,
+        innerText?: string
     ) {
-        super(container, tag, innerText, id, className)
-        if (tag === 'button') {
-            this.dom.onclick = this.onClick.bind(this)
+        super(container, tag, className, id, innerText)
+        if (tag === 'img') {
+            (<HTMLImageElement>this.dom).alt = className
         }
     }
 
-    public setSrc(src: string): void {
+    public set src(src: string) {
         (<HTMLImageElement>this.dom).src = src
     }
 
-    public onClick(): void {
-        if (this.selectable) {
-            if (this.dom.id === 'close') {
-                window.close()
-            }
-        }
+    public get isSelectable(): boolean {
+        return this.selectable
+    }
+
+    public set isSelectable(s: boolean) {
+        this.selectable = s
+        if (s) this.dom.classList.remove('disabled')
+        else this.dom.classList.add('disabled')
+    }
+
+    public select(): void {
+        this.dom.classList.add('selected')
+    }
+
+    public removeSelection(): void {
+        this.dom.classList.remove('selected')
     }
 }

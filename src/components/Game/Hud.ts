@@ -3,7 +3,7 @@ import HTMLItem from '../HTMLItem'
 
 export default class Hud extends HTMLItem {
     constructor(container: HTMLElement) {
-        super(container, 'div', null, 'hud')
+        super(container, 'div', 'hud')
     }
 
     public render(): void {

@@ -14,16 +14,29 @@ const Config = {
         noClip: 't'
     },
     sound: {
-        soundVolume: 0.3,
-        musicVolume: 0.2
+        soundVolume: 1,
+        musicVolume: 1
     },
     engine: {
-        viewRange: 30,          // in tiles
+        viewRange: 24,          // in tiles
         interval: 1000 / FPS,
-        playerHeight: 1,
         canvasWidth: 960,
         canvasHeight: 600,
-        tileSize: 2
+        tileSize: 4
+    },
+    menu: {
+        menuActive: false,
+        selectedOption: 0,
+        selectable: {
+            start: true,
+            options: true,
+            load: true,
+            save: false,
+            readme: true,
+            scores: true,
+            demo: false,
+            close: true
+        }
     },
     game: {
         started: false,

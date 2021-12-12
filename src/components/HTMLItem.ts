@@ -1,36 +1,30 @@
 /* eslint-disable require-jsdoc */
 export default class HTMLItem {
     private readonly container: HTMLElement
-    protected dom: HTMLElement
+    protected readonly dom: HTMLElement
 
     public state: number
 
     constructor(
         container: HTMLElement,
         tag: string,
-        innerText: 
-            | string
-            | null = null,
-        id: 
-            | string
-            | null = null,
-        className: 
-            | string
-            | null = null
+        className?: string,
+        id?: string,
+        innerText?: string
     ) {
         this.state = -1
         this.container = container
         this.dom = document.createElement(tag)
 
-        if (innerText !== null) {
+        if (innerText) {
             this.dom.innerText = innerText
         }
 
-        if (id !== null) {
+        if (id) {
             this.dom.id = id
         }
 
-        if (className !== null) {
+        if (className) {
             this.dom.className = className
         }
     }
@@ -46,12 +40,14 @@ export default class HTMLItem {
     public update(): void { null }
 
     public hide(): void {
-        this.dom.style.opacity = '0'
-        this.dom.style.zIndex = '-1'
+        this.dom.style.display = 'none'
+        // this.dom.style.opacity = '0'
+        // this.dom.style.zIndex = '-1'
     }
 
     public show(): void {
-        this.dom.style.opacity = '1'
-        this.dom.style.zIndex = '999'
+        this.dom.style.display = 'block'
+        // this.dom.style.opacity = '1'
+        // this.dom.style.zIndex = '999'
     }
 }

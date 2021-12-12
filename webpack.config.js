@@ -11,7 +11,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             hash: true,
-            favicon: './src/img/favicon.png',
+            favicon: './public/img/favicon.png',
             filename: './index.html',
             title: 'Wolfenstein 3D',
             template: './src/index.html',
@@ -27,11 +27,17 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader'],
+                include: [path.resolve(__dirname, 'public')]
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
+            },
+            {
+                test: /\.woff(2)$/,
+                // type: 'asset/resource',
+                use: 'url-loader?limit=10000&mimetype=application/font-woff',
             },
             {
                 test: /\.(mp3|wav)$/i,
@@ -41,7 +47,7 @@ module.exports = {
                 test: /\.ya?ml$/,
                 type: 'json',
                 use: 'yaml-loader'
-            }
+            },
         ]
     },
     resolve: {

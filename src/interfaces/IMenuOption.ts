@@ -2,5 +2,5 @@
 
 export default interface IMenuOption {
     selectable: boolean
-    onClick(e: MouseEvent): void
+    selected: boolean
 }

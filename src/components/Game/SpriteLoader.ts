@@ -2,7 +2,7 @@
 export default class SpriteLoader {
     public static getSprite(set: number): HTMLImageElement {
         const context = 
-            require.context('../../img/sprites/', false, /\.(png)$/)
+            require.context('/public/img/sprites/', false, /\.(png)$/)
 
         const r: string[] = <string[]> context.keys().map(context)
 

@@ -28,7 +28,7 @@ export default class MapLoader {
             return r.keys().map(r).map((el: any) => el)
         }
 
-        const context = require.context('../maps', false, /\.(ya?ml)$/)
+        const context = require.context('/public/maps', false, /\.(ya?ml)$/)
 
         return <mapTile[]> importAll(context)
     }
@@ -90,9 +90,9 @@ export default class MapLoader {
 
             case 'start':
                 this.playerStartingPos = [
-                    tile.x * size + 1,
-                    -Config.engine.playerHeight,
-                    tile.z * size - 1
+                    tile.x * size + Config.engine.tileSize / 2,
+                    -Config.engine.tileSize / 2,
+                    tile.z * size - Config.engine.tileSize / 2
                 ]
 
                 this.playerRot = <rotations>('' + tile.rotation)

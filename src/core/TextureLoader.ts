@@ -1,37 +1,32 @@
 /* eslint-disable require-jsdoc */
 
-import wall1 from '../img/textures/gray/01.png'
-import wall2 from '../img/textures/gray/02.png'
+import wall1 from '/public/img/textures/gray/01.png'
+import wall2 from '/public/img/textures/gray/02.png'
 
 export default class TextureLoader {
-    private readonly gl: WebGLRenderingContext
-    private readonly textures: any[] = []
+    // private readonly textures: any[] = []
 
-    constructor(gl: WebGLRenderingContext) {
-        this.gl = gl
-    }
+    // private initTextures(): void {
+    //     'pass'
+    // }
 
-    private initTextures(): void {
-        'pass'
-    }
+    // public getTexture(color: string): string {
+    //     console.log(color)
+    //     return color
+    // }
 
-    public getTexture(color: string): string {
-        console.log(color)
-        return color
-    }
+    public static loadTextures(gl: WebGL2RenderingContext): void {
+        const texture = gl.createTexture()
+        gl.bindTexture(gl.TEXTURE_2D, texture)
 
-    public loadTextures(): void {
-        const texture = this.gl.createTexture()
-        this.gl.bindTexture(this.gl.TEXTURE_2D, texture)
-
-        this.gl.texImage2D(
-            this.gl.TEXTURE_2D,
+        gl.texImage2D(
+            gl.TEXTURE_2D,
             0,
-            this.gl.RGBA,
+            gl.RGBA,
             1, 1,
             0,
-            this.gl.RGBA,
-            this.gl.UNSIGNED_BYTE,
+            gl.RGBA,
+            gl.UNSIGNED_BYTE,
             new Uint8Array([0, 0, 0, 255])
         )
 
@@ -41,16 +36,16 @@ export default class TextureLoader {
         img.width = 64
         img.height = 64
         img.onload = () => {
-            this.gl.bindTexture(this.gl.TEXTURE_2D, texture)
-            this.gl.texImage2D(
-                this.gl.TEXTURE_2D,
+            gl.bindTexture(gl.TEXTURE_2D, texture)
+            gl.texImage2D(
+                gl.TEXTURE_2D,
                 0,
-                this.gl.RGBA,
-                this.gl.RGBA,
-                this.gl.UNSIGNED_BYTE,
+                gl.RGBA,
+                gl.RGBA,
+                gl.UNSIGNED_BYTE,
                 img
             )
-            this.gl.generateMipmap(this.gl.TEXTURE_2D)
+            gl.generateMipmap(gl.TEXTURE_2D)
         }
         
         // img.crossOrigin = ''

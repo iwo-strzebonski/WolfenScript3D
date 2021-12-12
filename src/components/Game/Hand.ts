@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-import AudioController from '../Audio/AudioController'
+import AudioController from '../../core/audio/AudioController'
 import Config from '../../Config'
 import HTMLItem from '../HTMLItem'
 import SpriteLoader from './SpriteLoader'
@@ -10,13 +10,13 @@ import SpriteLoader from './SpriteLoader'
 // Track 10 - Chain Gun
 
 export default class Hand extends HTMLItem {
-    private audioController: AudioController
-    private img: HTMLImageElement
-    private ctx: CanvasRenderingContext2D
+    private readonly audioController: AudioController
+    private readonly img: HTMLImageElement
+    private readonly ctx: CanvasRenderingContext2D
     private then = 0
 
     constructor(container: HTMLElement) {
-        super(container, 'canvas', null, 'hand')
+        super(container, 'canvas', 'hand')
         this.img = SpriteLoader.getSprite(0)
         this.audioController = new AudioController()
         this.state = 0

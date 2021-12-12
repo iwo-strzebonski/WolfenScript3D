@@ -34,7 +34,6 @@ export default class WebGLCore {
 
     private mapLoader = new MapLoader(Config.game.map)
     private webGLColliders = new WebGlColliders(this.mapLoader.map)
-    private textureLoader: TextureLoader
 
     public cameraRotationY = this.mapLoader.playerStartingRot
 
@@ -67,7 +66,9 @@ export default class WebGLCore {
             gl_FragColor = texture2D(u_texture, v_texcoord);
         }
         `
-    
+
+        TextureLoader.loadTextures(this.gl)
+
         this.program = this.initShaderProgram(vsSource, fsSource)!
 
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height)
@@ -93,9 +94,7 @@ export default class WebGLCore {
         this.positionBuffer = this.gl.createBuffer()
         this.texcoordBuffer = this.gl.createBuffer()
         
-        this.textureLoader = new TextureLoader(this.gl)
-
-        this.textureLoader.loadTextures()
+        TextureLoader.loadTextures(this.gl)
     }
 
     public render(viewProjectionMatrix: mat4): void {
@@ -134,7 +133,7 @@ export default class WebGLCore {
                     if ((<Plane>this.mapLoader.map[i]).rotate) {
                         matrix = translate(
                             matrix,
-                            [1, 0, 0]
+                            [Config.engine.tileSize / 2, 0, 0]
                         )
 
                         matrix = yRotate(
@@ -143,7 +142,7 @@ export default class WebGLCore {
                     } else {
                         matrix = translate(
                             matrix,
-                            [0, 0, -1]
+                            [0, 0, -Config.engine.tileSize / 2]
                         )
                     }
                 } else if (
@@ -153,7 +152,7 @@ export default class WebGLCore {
                         if ((<Plane>this.mapLoader.map[i]).rotate) {
                             matrix = translate(
                                 matrix,
-                                [1, 0, 0]
+                                [Config.engine.tileSize / 2, 0, 0]
                             )
         
                             matrix = yRotate(
@@ -162,7 +161,7 @@ export default class WebGLCore {
                         } else {
                             matrix = translate(
                                 matrix,
-                                [0, 0, -1]
+                                [0, 0, -Config.engine.tileSize / 2]
                             )
                         }
                     } else {
@@ -171,7 +170,7 @@ export default class WebGLCore {
                                 matrix,
                                 [(
                                     (<Gate>this.mapLoader.map[i]).mode === 1
-                                        ? 2
+                                        ? Config.engine.tileSize
                                         : 0
                                 ),
                                 0,
@@ -189,7 +188,7 @@ export default class WebGLCore {
                                     0,
                                     0,
                                     ((<Gate>this.mapLoader.map[i]).mode === 1
-                                        ? -2
+                                        ? -Config.engine.tileSize
                                         : 0
                                     )
                                 ]

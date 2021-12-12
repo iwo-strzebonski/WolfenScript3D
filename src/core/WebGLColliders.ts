@@ -56,33 +56,43 @@ export default class WebGlColliders {
             for (const collider of this.colliders) {
                 if (
                     pos[0] >= collider.pos[0] &&
-                    pos[0] <= collider.pos[0] + 2
+                    pos[0] <= collider.pos[0] +
+                        Config.engine.tileSize
                 ) {
                     if (
                         pos[2] < collider.pos[2] &&
-                        pos[2] > collider.pos[2] - 3.35
+                        pos[2] > collider.pos[2] -
+                            (Config.engine.tileSize * 1.5)
                     ) {
-                        pos[2] = collider.pos[2] - 3.35
+                        pos[2] = collider.pos[2] -
+                            (Config.engine.tileSize * 1.5)
                     } else if (
                         pos[2] > collider.pos[2] &&
-                        pos[2] < collider.pos[2] + 1.35
+                        pos[2] < collider.pos[2] + 
+                            (Config.engine.tileSize / 2)
                     ) {
-                        pos[2] = collider.pos[2] + 1.35
+                        pos[2] = collider.pos[2] + 
+                            (Config.engine.tileSize / 2)
                     }
                 } else if (
-                    pos[2] >= collider.pos[2] - 2 &&
+                    pos[2] >= collider.pos[2] -
+                        Config.engine.tileSize &&
                     pos[2] <= collider.pos[2]
                 ) {
                     if (
                         pos[0] < collider.pos[0] &&
-                        pos[0] > collider.pos[0] - 1.35
+                        pos[0] > collider.pos[0] - 
+                            (Config.engine.tileSize / 2)
                     ) {
-                        pos[0] = collider.pos[0] - 1.35
+                        pos[0] = collider.pos[0] - 
+                            (Config.engine.tileSize / 2)
                     } else if (
                         pos[0] > collider.pos[0] &&
-                        pos[0] < collider.pos[0] + 3.35
+                        pos[0] < collider.pos[0] +
+                            (Config.engine.tileSize * 1.5)
                     ) {
-                        pos[0] = collider.pos[0] + 3.35
+                        pos[0] = collider.pos[0] +
+                            (Config.engine.tileSize * 1.5)
                     }
                 }
             }

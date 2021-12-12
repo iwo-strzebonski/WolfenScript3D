@@ -5,13 +5,15 @@ import Game from './Game'
 import Hand from './Hand'
 import Hud from './Hud'
 
+import '/public/styles/view.css'
+
 export default class View extends HTMLItem {
-    public game: Game
-    public hand: Hand
-    public hud: Hud
+    public readonly game: Game
+    public readonly hand: Hand
+    public readonly hud: Hud
 
     constructor(container: HTMLElement) {
-        super(container, 'div', null, 'view')
+        super(container, 'div', 'view')
         this.game = new Game(this.dom)
         this.hand = new Hand(this.dom)
         this.hud = new Hud(this.dom)
