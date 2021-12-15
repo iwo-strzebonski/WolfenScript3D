@@ -11,6 +11,7 @@ import { calculateTranslation } from '../lib/WebGLHelpers'
 
 import Primitive from './primitives/Primitive'
 import Config from '../Config'
+import Gate from './objects/Gate'
 
 export default class WebGlColliders {
     public colliders: Array<Primitive>
@@ -54,6 +55,10 @@ export default class WebGlColliders {
 
         if (!Config.game.noClip) {
             for (const collider of this.colliders) {
+                if (collider instanceof Gate && (<Gate>collider).mode) {
+                    continue
+                }
+
                 if (
                     pos[0] >= collider.pos[0] &&
                     pos[0] <= collider.pos[0] +
