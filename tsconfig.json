@@ -18,7 +18,6 @@
   ],
   "include": [
     "src",
-    "index.d.ts",
-    "fundamentals"
+    "index.d.ts"
   ]
 }
