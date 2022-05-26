@@ -12,7 +12,7 @@
   "author": "Iwo Strzeboński",
   "license": "WTFPL",
   "dependencies": {
-    "@types/webpack-env": "^1.16.3",
+    "@types/webpack-env": "^1.16.4",
     "css-loader": "^6.7.1",
     "style-loader": "^3.3.1",
     "webpack-dev-server": "^4.7.4"
